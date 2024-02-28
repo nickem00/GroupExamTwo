@@ -1,2 +1,4 @@
 def startGame():
-    pass
+    print("The game is started")
+    
+    
