@@ -1,3 +1,4 @@
-def dice(self):
-    pass
-"Hej"
+class Dice:
+
+    def __init__(self):
+        self.sides = 6
