@@ -1,4 +1,4 @@
-import Dice
+import dice
 
 
 class Player:
@@ -6,7 +6,7 @@ class Player:
         self.name = name
         self.total_score = 0
         self.round_score = 0
-        self.die = Dice.Dice()
+        self.die = dice.Dice()
 
     def roll_die(self):
         rollNumber = self.die.roll()

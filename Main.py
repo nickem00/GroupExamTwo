@@ -1,11 +1,12 @@
-# import Game
+# import game
 # import Dice
-import Player
+# import player
 
 
 def main():
-    player = Player.Player("Nicholas")
-    print(player.roll_die())
+    pass
+#     game = game.Game()
+#     game.start_game()
 
 
 if __name__ == "__main__":
