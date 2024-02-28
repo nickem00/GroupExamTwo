@@ -15,10 +15,10 @@ class Player:
         else:
             self.round_score += 0
         return rollNumber
-    
+
     def hold(self):
         self.total_score += self.round_score
         return
-    
-    def is_winning(self, winning_score)
+
+    def is_winning(self, winning_score):
         return self.total_score >= winning_score
