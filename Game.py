@@ -1,6 +1,7 @@
 import os
 import player
 import time
+import tools
 
 
 class Game():
@@ -9,13 +10,14 @@ class Game():
     def __init__(self):
         self.computer_player = player.Player('Computer')
         self.human_player = None
+        self.tools = tools.Tools()
 
     '''
     A method for starting up the game. Also prints the main menu and
     promts the user to select an option.
     '''
     def game_startup(self):
-        self.clear_screen()
+        self.tools.clear_screen()
         print('Welcome to PIG Dice Game!')
         self.human_player = player.Player(input('Please enter your name >> '))
 
@@ -65,13 +67,6 @@ class Game():
         print()
         for key in game_menu_options:
             print(f'{key}. {game_menu_options[key][0]}')
-
-    '''Simple method for clearing the screen for visual purposes'''
-    def clear_screen(self):
-        if os.name == 'nt':
-            os.system('cls')
-        else:
-            os.system('clear')
 
     '''Starts the actual game'''
     def start_game(self):
