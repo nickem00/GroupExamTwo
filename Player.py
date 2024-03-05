@@ -11,14 +11,14 @@ class Player:
     def roll_die(self):
         rollNumber = self.die.roll()
         if rollNumber == 1:
-            self.round_score == 0
+            self.round_score = 0
         else:
             self.round_score += 0
         return rollNumber
 
     def hold(self):
         self.total_score += self.round_score
-        self.round_score == 0
+        self.round_score = 0
         return
 
     def is_winning(self, winning_score):
