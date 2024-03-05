@@ -13,7 +13,7 @@ class Player:
         if rollNumber == 1:
             self.round_score = 0
         else:
-            self.round_score += 0
+            self.round_score += rollNumber
         return rollNumber
 
     def hold(self):

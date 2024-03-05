@@ -2,15 +2,17 @@
 import player
 import time
 import tools
+import intelligence
 
 
 class Game():
 
     '''Constructor of the Game class.'''
     def __init__(self):
-        self.computer_player = player.Player('Computer')
+        self.computer_player = intelligence.Intelligence()
         self.human_player = None
         self.tools = tools.Tools()
+        self.difficulty = 1
 
     '''
     A method for starting up the game. Also prints the main menu and
@@ -73,10 +75,18 @@ class Game():
         game_menu_options = {
             '1': ('Roll die', self.human_player.roll_die),
             '2': ('Hold', self.human_player.hold),
-            '3': ('Exit game', None)
+            '3': ('Change Difficulty', self.change_difficulty),
+            '4': ('Exit game', None)
         }
 
         rounds = 0
+        if rounds % 2 == 0:
+            self.human_players_turn(rounds, game_menu_options)
+            rounds += 1
+        else:
+            self.computer_players_turn()
+
+    def human_players_turn(self, rounds, game_menu_options):
         if rounds == 0:
             print(f'You start {self.human_player.name}!')
 
@@ -90,12 +100,28 @@ class Game():
                 continue
 
             if 1 <= choice <= 4:
-                if choice == 3:
+                if choice == 4:
                     return
                 elif choice == 1:
                     current_roll = game_menu_options[str(choice)][1]()
                     print(f'You rolled a {current_roll}')
+                elif choice == 2:
+                    game_menu_options[str(choice)][1]()
+                    print('You selected hold..')
+                    break
                 else:
-                    pass
+                    game_menu_options[str(choice)][1]()
             else:
                 print('Please enter a valid choice')
+
+    def computer_players_turn(self, rounds, game_menu_options):
+        intelligence.start_round(self.difficulty)
+
+    def change_difficulty(self):
+        new_difficulty = int(input('Please select new difficulty:\n'
+                                   '1. Easy\n'
+                                   '2. Medium\n'
+                                   '3. Hard\n'
+                                   '>>> '))
+        if 1 <= new_difficulty <= 3:
+            self.difficulty = new_difficulty
