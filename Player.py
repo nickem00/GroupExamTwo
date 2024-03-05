@@ -18,7 +18,11 @@ class Player:
 
     def hold(self):
         self.total_score += self.round_score
+        self.round_score == 0
         return
 
     def is_winning(self, winning_score):
         return self.total_score >= winning_score
+
+    def set_name(self, name):
+        self.name = name

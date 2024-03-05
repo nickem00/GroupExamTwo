@@ -1,12 +1,11 @@
-# import game
+import game
 # import Dice
 # import player
 
 
 def main():
-    pass
-#     game = game.Game()
-#     game.start_game()
+    game_controller = game.Game()
+    game_controller.game_startup()
 
 
 if __name__ == "__main__":
