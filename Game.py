@@ -2,14 +2,15 @@
 import player
 import time
 import tools
-import intelligence
+import Intelligence
+import rules
 
 
 class Game():
 
     '''Constructor of the Game class.'''
     def __init__(self):
-        self.computer_player = intelligence.Intelligence()
+        self.computer_player = Intelligence.Intelligence()
         self.human_player = None
         self.tools = tools.Tools()
         self.difficulty = 1
@@ -52,7 +53,8 @@ class Game():
 
     '''A method for showing the rules of the game.'''
     def show_rules(self):
-        pass
+        all_rules = rules.Rules()
+        all_rules.show_rules()
 
     '''A method for changing the player name.'''
     def change_name(self):
@@ -115,7 +117,7 @@ class Game():
                 print('Please enter a valid choice')
 
     def computer_players_turn(self, rounds, game_menu_options):
-        intelligence.start_round(self.difficulty)
+        self.intelligence.start_round(self.difficulty)
 
     def change_difficulty(self):
         new_difficulty = int(input('Please select new difficulty:\n'
