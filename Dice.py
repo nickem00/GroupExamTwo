@@ -8,3 +8,4 @@ class Dice:
 
     def roll(self):
         return random.randint(1, self.sides)
+# test

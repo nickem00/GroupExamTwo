@@ -2,7 +2,7 @@
 import player
 import time
 import tools
-import Intelligence
+import intelligence
 import rules
 
 
@@ -10,7 +10,7 @@ class Game():
 
     '''Constructor of the Game class.'''
     def __init__(self):
-        self.computer_player = Intelligence.Intelligence()
+        self.computer_player = intelligence.Intelligence()
         self.human_player = None
         self.tools = tools.Tools()
         self.difficulty = 1
