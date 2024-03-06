@@ -176,7 +176,8 @@ class PlayerVsComputer():
                 print('Please enter a valid choice')
 
     '''
-    A method for the computer players turn.
+    A method for the computer players turn. Much of the logic is
+    implemented in the intelligence class.
     '''
     def computer_players_turn(self):
         self.computer_player.start_round(self.difficulty, self.histogram)
@@ -188,7 +189,8 @@ class PlayerVsComputer():
         self.tools.enter_to_continue()
 
     '''
-    A method for changing the difficulty of the game.
+    A method for changing the difficulty of the game. Asks the user
+    to select a new difficulty and changes it.
     '''
     def change_difficulty(self):
         new_difficulty = self.settings.change_difficulty()
@@ -198,6 +200,9 @@ class PlayerVsComputer():
             self.difficulty = new_difficulty
             print('You selected a new difficulty!')
 
+    '''
+    A method for printing the scores of the players.
+    '''
     def print_points(self):
         print('Scores:\n'
               f'You: {self.human_player.total_score}\n'
