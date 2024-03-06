@@ -8,9 +8,10 @@ import settingsClass
 from exceptions import (GameExitException, RolledAOneException,
                         ComputerWonException)
 import developer
+import histogram
 
 
-class Game():
+class PlayerVsComputer():
 
     '''Constructor of the Game class.'''
     def __init__(self):
@@ -22,6 +23,7 @@ class Game():
         self.all_rules = rules.Rules()
         self.intelligence = intelligence.Intelligence()
         self.developer = developer.Developer()
+        self.histogram = histogram.Histogram()
 
     '''
     A method for starting up the game. Also prints the main menu and
@@ -98,7 +100,8 @@ class Game():
             '3': ('Change Difficulty', self.change_difficulty),
             '4': ('Exit game (Points reset)', None),
             ' ': ('-------------------------', None),
-            '5': ('Dev-Options', self.developer.developer_menu)
+            '5': ('Show Histogram', self.histogram.show_histogram),
+            '6': ('Dev-Options', self.developer.developer_menu)
         }
 
         rounds = 0
@@ -133,14 +136,15 @@ class Game():
                 time.sleep(2)
                 continue
 
-            if 1 <= choice <= 5:
+            if 1 <= choice <= 6:
                 if choice == 4:
                     print('Exiting game..')
                     self.human_player.total_score = 0
                     raise GameExitException
                 elif choice == 1:
                     try:
-                        current_roll = game_menu_options[str(choice)][1]()
+                        current_roll = (game_menu_options
+                                        [str(choice)][1](self.histogram))
                         self.tools.clear_screen()
                         print(f'You rolled a {current_roll}')
                     except RolledAOneException:
@@ -163,6 +167,8 @@ class Game():
                         self.tools.enter_to_continue()
                         break
                 elif choice == 5:
+                    game_menu_options[str(choice)][1]()
+                elif choice == 6:
                     self.developer.developer_menu(self.human_player)
                 else:
                     game_menu_options[str(choice)][1]()
@@ -173,7 +179,7 @@ class Game():
     A method for the computer players turn.
     '''
     def computer_players_turn(self):
-        self.computer_player.start_round(self.difficulty)
+        self.computer_player.start_round(self.difficulty, self.histogram)
         if self.computer_player.is_winning(100):
             print('The computer won!')
             self.tools.enter_to_continue()

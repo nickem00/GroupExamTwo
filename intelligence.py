@@ -16,14 +16,14 @@ class Intelligence:
         self.rolls = []
         self.tools = tools.Tools()
 
-    def start_round(self, difficulty):
+    def start_round(self, difficulty, histogram):
         self.rolls = []
         if difficulty == 1:
-            self.easy()
+            self.easy(histogram)
         elif difficulty == 2:
-            self.medium()
+            self.medium(histogram)
         elif difficulty == 3:
-            self.hard()
+            self.hard(histogram)
         else:
             print('Error: Difficulty not set')
 
@@ -35,36 +35,39 @@ class Intelligence:
         self.round_score = 0
         return
 
-    def easy(self):
+    def easy(self, histogram):
         self.roll_until_hold = random.randint(1, 2)
         for _ in range(self.roll_until_hold):
             try:
-                self.roll_die()
+                self.roll_die(histogram)
             except RolledAOneException:
                 print('The computer rolled a one. No points added!')
                 break
         self.hold()
 
-    def medium(self):
+    def medium(self, histogram):
         self.roll_until_hold = random.randint(1, 5)
         for _ in range(self.roll_until_hold):
             try:
-                self.roll_die()
+                self.roll_die(histogram)
             except RolledAOneException:
+                print('The computer rolled a one. No points added!')
                 break
         self.hold()
 
-    def hard(self):
+    def hard(self, histogram):
         self.roll_until_hold = random.randint(1, 10)
         for _ in range(self.roll_until_hold):
             try:
-                self.roll_die()
+                self.roll_die(histogram)
             except RolledAOneException:
+                print('The computer rolled a one. No points added!')
                 break
         self.hold()
 
-    def roll_die(self):
+    def roll_die(self, histogram):
         rollNumber = self.die.roll()
+        histogram.add_to_histogram(rollNumber)
         if rollNumber == 1:
             self.rolls.append(rollNumber)
             self.round_score = 0

@@ -9,8 +9,9 @@ class Player:
         self.round_score = 0
         self.die = dice.Dice()
 
-    def roll_die(self):
+    def roll_die(self, histogram):
         rollNumber = self.die.roll()
+        histogram.add_to_histogram(rollNumber)
         if rollNumber == 1:
             self.round_score = 0
             raise RolledAOneException
