@@ -2,7 +2,7 @@ class SettingsClass:
     def __init__(self):
         pass
 
-    def change_difficulty(self, difficulty):
+    def change_difficulty(self):
         new_difficulty = int(input('Please select new difficulty:\n'
                                    '1. Easy\n'
                                    '2. Medium\n'

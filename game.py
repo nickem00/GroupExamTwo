@@ -5,7 +5,8 @@ import tools
 import intelligence
 import rules
 import settingsClass
-from exceptions import GameExitException, RolledAOneException
+from exceptions import (GameExitException, RolledAOneException,
+                        ComputerWonException)
 import developer
 
 
@@ -30,7 +31,7 @@ class Game():
         self.tools.clear_screen()
         print('Welcome to PIG Dice Game!')
         if not self.human_player:
-            self.human_player = player.Player(input('Please enter'
+            self.human_player = player.Player(input('Please enter '
                                                     'your name >> '))
 
         main_menu_options = {
@@ -111,7 +112,7 @@ class Game():
                     print('Computer players turn!')
                     self.computer_players_turn()
                     rounds += 1
-            except GameExitException:
+            except (GameExitException, ComputerWonException):
                 break
 
     '''
@@ -173,6 +174,10 @@ class Game():
     '''
     def computer_players_turn(self):
         self.computer_player.start_round(self.difficulty)
+        if self.computer_player.is_winning(100):
+            print('The computer won!')
+            self.tools.enter_to_continue()
+            raise ComputerWonException
         self.print_points()
         self.tools.enter_to_continue()
 

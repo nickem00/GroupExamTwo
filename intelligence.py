@@ -72,3 +72,6 @@ class Intelligence:
         else:
             self.round_score += rollNumber
             self.rolls.append(rollNumber)
+
+    def is_winning(self, winning_score):
+        return self.total_score >= winning_score

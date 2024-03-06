@@ -4,3 +4,7 @@ class GameExitException(Exception):
 
 class RolledAOneException(Exception):
     pass
+
+
+class ComputerWonException(Exception):
+    pass
