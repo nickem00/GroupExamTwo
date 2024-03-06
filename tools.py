@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 class Tools():
@@ -12,3 +13,7 @@ class Tools():
             os.system('cls')
         else:
             os.system('clear')
+
+    def close_game(self):
+        print('Thank you for playing!')
+        sys.exit()

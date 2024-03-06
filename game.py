@@ -5,6 +5,8 @@ import tools
 import intelligence
 import rules
 import settingsClass
+from exceptions import GameExitException
+
 
 
 class Game():
@@ -26,7 +28,8 @@ class Game():
     def game_startup(self):
         self.tools.clear_screen()
         print('Welcome to PIG Dice Game!')
-        self.human_player = player.Player(input('Please enter your name >> '))
+        if not self.human_player:
+            self.human_player = player.Player(input('Please enter your name >> '))
 
         main_menu_options = {
             '1': ('Start Game', self.start_game),
@@ -47,7 +50,7 @@ class Game():
 
             if 1 <= choice <= 4:
                 if choice == 4:
-                    return
+                    self.tools.close_game()
                 elif main_menu_options[str(choice)][1]:
                     main_menu_options[str(choice)][1]()
                 else:
@@ -55,15 +58,21 @@ class Game():
             else:
                 print('Please enter a valid choice!')
 
-    '''A method for showing the rules of the game.'''
+    '''
+    A method for showing the rules of the game.
+    '''
     def show_rules(self):
         self.all_rules.show_rules()
 
-    '''A method for changing the player name.'''
+    '''
+    A method for changing the player name.
+    '''
     def change_name(self):
         self.human_player.set_name(input('Please enter new name >> '))
 
-    '''A method for printing the menu'''
+    '''
+    A method for printing the Main menu.
+    '''
     def print_main_menu(self, main_menu_options):
         print()
         print(f'Welcome {self.human_player.name}')
@@ -75,25 +84,35 @@ class Game():
         for key in game_menu_options:
             print(f'{key}. {game_menu_options[key][0]}')
 
-    '''Starts the actual game'''
+    '''
+    A method for starting the game.
+    It contains the game loop.
+    '''
     def start_game(self):
         game_menu_options = {
             '1': ('Roll die', self.human_player.roll_die),
             '2': ('Hold', self.human_player.hold),
             '3': ('Change Difficulty', self.change_difficulty),
-            '4': ('Exit game', None)
+            '4': ('Exit game (Points reset)', None)
         }
 
         rounds = 0
         while True:
-            if rounds % 2 == 0:
-                self.human_players_turn(rounds, game_menu_options)
-                rounds += 1
-            else:
-                print('Computer players turn')
-                # self.computer_players_turn()
-                rounds += 1
+            try:
+                if rounds % 2 == 0:
+                    self.human_players_turn(rounds, game_menu_options)
+                    rounds += 1
+                else:
+                    print('Computer players turn')
+                    # self.computer_players_turn()
+                    rounds += 1
+            except GameExitException:
+                break
 
+    '''
+    A method for the human players turn.
+    It takes in the current round and the game menu options.
+    '''
     def human_players_turn(self, rounds, game_menu_options):
         if rounds == 0:
             print(f'You start {self.human_player.name}!')
@@ -110,7 +129,8 @@ class Game():
             if 1 <= choice <= 4:
                 if choice == 4:
                     print('Exiting game..')
-                    return
+                    self.human_player.total_score = 0
+                    raise GameExitException
                 elif choice == 1:
                     current_roll = game_menu_options[str(choice)][1]()
                     print(f'You rolled a {current_roll}')
@@ -127,9 +147,15 @@ class Game():
             else:
                 print('Please enter a valid choice')
 
+    '''
+    A method for the computer players turn.
+    '''
     def computer_players_turn(self, rounds, game_menu_options):
         self.intelligence.start_round(self.difficulty)
 
+    '''
+    A method for changing the difficulty of the game.
+    '''
     def change_difficulty(self):
         new_difficulty = self.settings.change_difficulty()
         if new_difficulty == self.difficulty:
