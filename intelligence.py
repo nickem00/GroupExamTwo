@@ -72,4 +72,3 @@ class Intelligence:
         else:
             self.round_score += rollNumber
             self.rolls.append(rollNumber)
-

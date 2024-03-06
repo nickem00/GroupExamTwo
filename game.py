@@ -9,7 +9,6 @@ from exceptions import GameExitException, RolledAOneException
 import developer
 
 
-
 class Game():
 
     '''Constructor of the Game class.'''
@@ -31,7 +30,8 @@ class Game():
         self.tools.clear_screen()
         print('Welcome to PIG Dice Game!')
         if not self.human_player:
-            self.human_player = player.Player(input('Please enter your name >> '))
+            self.human_player = player.Player(input('Please enter'
+                                                    'your name >> '))
 
         main_menu_options = {
             '1': ('Start Game', self.start_game),
@@ -150,7 +150,8 @@ class Game():
                     game_menu_options[str(choice)][1]()
                     self.tools.clear_screen()
                     if self.human_player.is_winning(100):
-                        print(f'***Congratulations {self.human_player.name}! You won!***')
+                        print(f'***Congratulations {self.human_player.name}!'
+                              'You won!***')
                         self.tools.enter_to_continue()
                         break
                     else:
