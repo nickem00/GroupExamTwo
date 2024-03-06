@@ -2,7 +2,10 @@ import playerVsComputer
 import playerVsPlayer
 import tools
 
-# import player
+'''
+Main method for the game.
+Contains the Start Menu and the game loop.
+'''
 
 
 def main():

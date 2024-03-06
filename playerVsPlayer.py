@@ -12,7 +12,10 @@ from exceptions import (RolledAOneException,
 
 class PlayerVsPlayer:
 
-    '''Constructor of the Game class.'''
+    '''
+    Constructor of the Game class.
+    Contains main menu options and game menu options,
+    '''
     def __init__(self):
         self.player_one = None
         self.player_two = None
@@ -70,6 +73,11 @@ class PlayerVsPlayer:
                 print('Please enter a valid choice! Error: Not in range 1-3')
                 continue
 
+    '''
+    The method for starting the game. The game is turn-based.
+    If there somewhere in the game raises a GameExitException,
+    the game will exit and the scores will be reset.
+    '''
     def start_game(self):
         rounds = 0
         while True:
@@ -86,6 +94,13 @@ class PlayerVsPlayer:
                 self.show_histogram()
                 break
 
+    '''
+    The method for starting a round. The game is turn-based.
+    Prints the game menu and prompts the user to select an option.
+    Always checks if a player has won the game.
+    Prints the scores of the players after each turn using the
+    print_points method.
+    '''
     def start_round(self, rounds, player):
         self.tools.clear_screen()
 
@@ -139,7 +154,7 @@ class PlayerVsPlayer:
                         break
 
     '''
-    A method for printing the main menu.
+    A method for printing the Main menu.
     '''
     def print_main_menu(self):
         print('---Main Menu---\n')
@@ -148,7 +163,7 @@ class PlayerVsPlayer:
         return
 
     '''
-    A method for printing the game menu.
+    A method for printing the Game menu.
     '''
     def print_game_menu(self):
         print('---Game Menu---\n')
@@ -163,6 +178,11 @@ class PlayerVsPlayer:
         self.all_rules.show_rules()
         return
 
+    '''
+    The method for changing the name of a player.
+    Asks the user which player to change the name of, and then
+    prompts the user to enter a new name.
+    '''
     def change_name(self):
         while True:
             try:
@@ -190,6 +210,9 @@ class PlayerVsPlayer:
                 continue
         return
 
+    '''
+    A method for printing the scores of the players.
+    '''
     def print_points(self):
         print('Scores:\n'
               f'{self.player_one.name}: '
@@ -198,6 +221,9 @@ class PlayerVsPlayer:
               f'{self.player_two.total_score}\n')
         return
 
+    '''
+    A method for showing the histogram of the game.
+    '''
     def show_histogram(self):
         self.histogram.show_histogram()
         return

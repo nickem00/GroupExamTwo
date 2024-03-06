@@ -5,6 +5,9 @@ class Rules:
     def __init__(self):
         self.tools = Tools()
 
+    '''
+    Method to show the rules of the game.
+    '''
     def show_rules(self):
         self.tools.clear_screen()
         print('''Welcome to the PIG Dice Game!

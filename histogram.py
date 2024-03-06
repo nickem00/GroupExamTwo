@@ -3,13 +3,24 @@ import tools
 
 class Histogram:
 
+    '''
+    Constructor of the Histogram class.
+    Creates a dictionary for the histogram.'''
     def __init__(self):
         self.tools = tools.Tools()
         self.histogram = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
 
+    '''
+    A method for adding a roll to the histogram.
+    '''
     def add_to_histogram(self, roll):
         self.histogram[roll] += 1
 
+    '''
+    A method for showing the histogram.
+    Goes through the histogram and prints the number of times
+    each number was rolled.
+    '''
     def show_histogram(self):
         self.tools.clear_screen()
         print("---How often each number was rolled---")
