@@ -4,6 +4,7 @@ import time
 import tools
 import intelligence
 import rules
+import settingsClass
 
 
 class Game():
@@ -14,6 +15,9 @@ class Game():
         self.human_player = None
         self.tools = tools.Tools()
         self.difficulty = 1
+        self.settings = settingsClass.SettingsClass()
+        self.all_rules = rules.Rules()
+        self.intelligence = intelligence.Intelligence()
 
     '''
     A method for starting up the game. Also prints the main menu and
@@ -53,8 +57,7 @@ class Game():
 
     '''A method for showing the rules of the game.'''
     def show_rules(self):
-        all_rules = rules.Rules()
-        all_rules.show_rules()
+        self.all_rules.show_rules()
 
     '''A method for changing the player name.'''
     def change_name(self):
@@ -82,11 +85,14 @@ class Game():
         }
 
         rounds = 0
-        if rounds % 2 == 0:
-            self.human_players_turn(rounds, game_menu_options)
-            rounds += 1
-        else:
-            self.computer_players_turn()
+        while True:
+            if rounds % 2 == 0:
+                self.human_players_turn(rounds, game_menu_options)
+                rounds += 1
+            else:
+                print('Computer players turn')
+                # self.computer_players_turn()
+                rounds += 1
 
     def human_players_turn(self, rounds, game_menu_options):
         if rounds == 0:
@@ -103,13 +109,18 @@ class Game():
 
             if 1 <= choice <= 4:
                 if choice == 4:
+                    print('Exiting game..')
                     return
                 elif choice == 1:
                     current_roll = game_menu_options[str(choice)][1]()
                     print(f'You rolled a {current_roll}')
                 elif choice == 2:
                     game_menu_options[str(choice)][1]()
-                    print('You selected hold..')
+                    print('You held! Your total score is '
+                          f'now {self.human_player.total_score}')
+                    print('Scores:\n'
+                          f'You: {self.human_player.total_score}\n'
+                          f'Computer: {self.computer_player.total_score}\n')
                     break
                 else:
                     game_menu_options[str(choice)][1]()
@@ -120,10 +131,9 @@ class Game():
         self.intelligence.start_round(self.difficulty)
 
     def change_difficulty(self):
-        new_difficulty = int(input('Please select new difficulty:\n'
-                                   '1. Easy\n'
-                                   '2. Medium\n'
-                                   '3. Hard\n'
-                                   '>>> '))
-        if 1 <= new_difficulty <= 3:
+        new_difficulty = self.settings.change_difficulty()
+        if new_difficulty == self.difficulty:
+            print('You selected the same difficulty.')
+        else:
             self.difficulty = new_difficulty
+            print('You selected a new difficulty!')
