@@ -5,7 +5,7 @@ import tools
 import intelligence
 import rules
 import settingsClass
-from exceptions import GameExitException
+from exceptions import GameExitException, RolledAOneException
 
 
 
@@ -104,7 +104,7 @@ class Game():
                     rounds += 1
                 else:
                     print('Computer players turn')
-                    # self.computer_players_turn()
+                    self.computer_players_turn()
                     rounds += 1
             except GameExitException:
                 break
@@ -132,8 +132,12 @@ class Game():
                     self.human_player.total_score = 0
                     raise GameExitException
                 elif choice == 1:
-                    current_roll = game_menu_options[str(choice)][1]()
-                    print(f'You rolled a {current_roll}')
+                    try:
+                        current_roll = game_menu_options[str(choice)][1]()
+                        print(f'You rolled a {current_roll}')
+                    except RolledAOneException:
+                        print('\nYou rolled a 1! Your turn is over.')
+                        break
                 elif choice == 2:
                     game_menu_options[str(choice)][1]()
                     print('You held! Your total score is '
@@ -150,8 +154,11 @@ class Game():
     '''
     A method for the computer players turn.
     '''
-    def computer_players_turn(self, rounds, game_menu_options):
+    def computer_players_turn(self):
         self.intelligence.start_round(self.difficulty)
+        print(f'{self.computer_player.intelligence_name} '
+              f'managed to get {self.computer_player.round_score} points '
+              'this round!')
 
     '''
     A method for changing the difficulty of the game.

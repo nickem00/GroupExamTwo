@@ -1,5 +1,6 @@
 import dice
 import random
+from exceptions import RolledAOneException
 
 
 class Intelligence:
@@ -30,27 +31,35 @@ class Intelligence:
     def easy(self):
         self.roll_until_hold = random.randint(1, 6) 
         for i in range(self.roll_until_hold):
-            self.roll_die()          
+            try:
+                self.roll_die()
+            except RolledAOneException:
+                break
         self.hold()
 
     def medium(self):
         self.roll_until_hold = random.randint(1, 11)   
         for i in range(self.roll_until_hold):
-            self.roll_die()
-
+            try:
+                self.roll_die()
+            except RolledAOneException:
+                break
         self.hold()
 
     def hard(self):
         self.roll_until_hold = random.randint(1, 21)
-
         for i in range(self.roll_until_hold):
-            self.roll_die()
-        self.hold()     
+            try:
+                self.roll_die()
+            except RolledAOneException:
+                break
+        self.hold()
 
     def roll_die(self):
         rollNumber = self.die.roll()
         if rollNumber == 1:
             self.round_score = 0
+            raise RolledAOneException
         else:
             self.round_score += rollNumber
         return rollNumber

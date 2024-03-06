@@ -1,4 +1,5 @@
 import dice
+from exceptions import RolledAOneException
 
 
 class Player:
@@ -12,6 +13,7 @@ class Player:
         rollNumber = self.die.roll()
         if rollNumber == 1:
             self.round_score = 0
+            raise RolledAOneException
         else:
             self.round_score += rollNumber
         return rollNumber
