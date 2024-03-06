@@ -14,7 +14,7 @@ class Intelligence:
 
     def start_round(self, difficulty):
         if difficulty == 1:
-            self.easy()        
+            self.easy()
         elif difficulty == 2:
             print("Medium")
         elif difficulty == 3:
@@ -26,13 +26,13 @@ class Intelligence:
         return
 
     def easy(self):
-        self.roll_until_hold = random.randint(1, 6) 
+        self.roll_until_hold = random.randint(1, 6)
         for i in range(self.roll_until_hold):
-            self.roll_die()          
+            self.roll_die()
         self.hold()
 
     def medium(self):
-        self.roll_until_hold = random.randint(1, 11)   
+        self.roll_until_hold = random.randint(1, 11)
         for i in range(self.roll_until_hold):
             self.roll_die()
 
@@ -40,11 +40,11 @@ class Intelligence:
 
     def hard(self):
         self.roll_until_hold = random.randint(1, 21)
-        
+
         for i in range(self.roll_until_hold):
             self.roll_die()
-        self.hold()     
-   
+        self.hold()
+
     def roll_die(self):
         rollNumber = self.die.roll()
         if rollNumber == 1:
@@ -52,4 +52,3 @@ class Intelligence:
         else:
             self.round_score += rollNumber
         return rollNumber
-    
