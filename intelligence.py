@@ -19,7 +19,8 @@ class Intelligence:
             self.medium()
         elif difficulty == 3:
             self.hard()
-            
+        else:
+            print('Error: Difficulty not set')
 
     def hold(self):
         self.total_score += self.round_score
@@ -41,11 +42,11 @@ class Intelligence:
 
     def hard(self):
         self.roll_until_hold = random.randint(1, 21)
-        
+
         for i in range(self.roll_until_hold):
             self.roll_die()
         self.hold()     
-   
+
     def roll_die(self):
         rollNumber = self.die.roll()
         if rollNumber == 1:
@@ -53,4 +54,3 @@ class Intelligence:
         else:
             self.round_score += rollNumber
         return rollNumber
-    
