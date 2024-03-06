@@ -9,7 +9,6 @@ class Histogram:
 
     def add_to_histogram(self, roll):
         self.histogram[roll] += 1
-        print(f'added {roll} to histogram')
 
     def show_histogram(self):
         self.tools.clear_screen()
