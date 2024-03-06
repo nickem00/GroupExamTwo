@@ -6,6 +6,7 @@ import intelligence
 import rules
 import settingsClass
 from exceptions import GameExitException, RolledAOneException
+import developer
 
 
 
@@ -20,6 +21,7 @@ class Game():
         self.settings = settingsClass.SettingsClass()
         self.all_rules = rules.Rules()
         self.intelligence = intelligence.Intelligence()
+        self.developer = developer.Developer()
 
     '''
     A method for starting up the game. Also prints the main menu and
@@ -93,7 +95,9 @@ class Game():
             '1': ('Roll die', self.human_player.roll_die),
             '2': ('Hold', self.human_player.hold),
             '3': ('Change Difficulty', self.change_difficulty),
-            '4': ('Exit game (Points reset)', None)
+            '4': ('Exit game (Points reset)', None),
+            ' ': ('-------------------------', None),
+            '5': ('Dev-Options', self.developer.developer_menu)
         }
 
         rounds = 0
@@ -103,7 +107,8 @@ class Game():
                     self.human_players_turn(rounds, game_menu_options)
                     rounds += 1
                 else:
-                    print('Computer players turn')
+                    self.tools.clear_screen()
+                    print('Computer players turn!')
                     self.computer_players_turn()
                     rounds += 1
             except GameExitException:
@@ -115,6 +120,7 @@ class Game():
     '''
     def human_players_turn(self, rounds, game_menu_options):
         if rounds == 0:
+            self.tools.clear_screen()
             print(f'You start {self.human_player.name}!')
 
         while True:
@@ -126,7 +132,7 @@ class Game():
                 time.sleep(2)
                 continue
 
-            if 1 <= choice <= 4:
+            if 1 <= choice <= 5:
                 if choice == 4:
                     print('Exiting game..')
                     self.human_player.total_score = 0
@@ -134,18 +140,28 @@ class Game():
                 elif choice == 1:
                     try:
                         current_roll = game_menu_options[str(choice)][1]()
+                        self.tools.clear_screen()
                         print(f'You rolled a {current_roll}')
                     except RolledAOneException:
                         print('\nYou rolled a 1! Your turn is over.')
+                        input('Press enter to continue...')
                         break
                 elif choice == 2:
                     game_menu_options[str(choice)][1]()
-                    print('You held! Your total score is '
-                          f'now {self.human_player.total_score}')
-                    print('Scores:\n'
-                          f'You: {self.human_player.total_score}\n'
-                          f'Computer: {self.computer_player.total_score}\n')
-                    break
+                    self.tools.clear_screen()
+                    if self.human_player.is_winning(100):
+                        print(f'***Congratulations {self.human_player.name}! You won!***')
+                        self.tools.enter_to_continue()
+                        break
+                    else:
+                        print('You held! Your total score is '
+                              f'now {self.human_player.total_score}')
+                        print('-----------------------------------')
+                        self.print_points()
+                        self.tools.enter_to_continue()
+                        break
+                elif choice == 5:
+                    self.developer.developer_menu(self.human_player)
                 else:
                     game_menu_options[str(choice)][1]()
             else:
@@ -155,10 +171,9 @@ class Game():
     A method for the computer players turn.
     '''
     def computer_players_turn(self):
-        self.intelligence.start_round(self.difficulty)
-        print(f'{self.computer_player.intelligence_name} '
-              f'managed to get {self.computer_player.round_score} points '
-              'this round!')
+        self.computer_player.start_round(self.difficulty)
+        self.print_points()
+        self.tools.enter_to_continue()
 
     '''
     A method for changing the difficulty of the game.
@@ -170,3 +185,8 @@ class Game():
         else:
             self.difficulty = new_difficulty
             print('You selected a new difficulty!')
+
+    def print_points(self):
+        print('Scores:\n'
+              f'You: {self.human_player.total_score}\n'
+              f'Computer: {self.computer_player.total_score}\n')

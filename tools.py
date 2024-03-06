@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 
 class Tools():
@@ -17,3 +18,12 @@ class Tools():
     def close_game(self):
         print('Thank you for playing!')
         sys.exit()
+
+    def pause(self, seconds):
+        time.sleep(seconds)
+        return
+
+    def enter_to_continue(self):
+        input('Press enter to continue...')
+        self.clear_screen()
+        return
