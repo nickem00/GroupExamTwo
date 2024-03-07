@@ -7,12 +7,19 @@ class Highscore():
         self.highscore_file = "highscore.txt"
 
     def new_highscore(self, player_name, player_score, filename):
-        current_highscore = self.highscore_tracker(filename)
+        highscores = self.highscore_tracker(filename)
 
-        if player_score > current_highscore:
+        if not highscores:
             self.save_new_highscore(player_name, player_score, filename)
+        
         else:
-            pass
+            current_highscoreholder = list(highscores.keys())[-1]
+            current_highscoreholder_score = highscores[current_highscoreholder]
+
+            if player_score > current_highscoreholder_score:
+                self.save_new_highscore(player_name, player_score, filename)
+            else:
+                pass
 
     def highscore_tracker(self, highscore_file):
             try:
