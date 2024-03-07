@@ -25,7 +25,6 @@ class Intelligence:
     difficulty.
     '''
     def start_round(self, difficulty, histogram):
-        self.rolls = []
         if difficulty == 1:
             self.easy(histogram)
         elif difficulty == 2:
@@ -45,6 +44,7 @@ class Intelligence:
               f'which gives a total of {self.round_score} points!')
         print('-----------------------------------')
         self.round_score = 0
+        self.rolls = []
         return
 
     '''
