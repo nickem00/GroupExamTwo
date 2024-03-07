@@ -1,5 +1,6 @@
 import dice
 from exceptions import RolledAOneException
+import highscore
 
 
 class Player:
@@ -12,6 +13,7 @@ class Player:
         self.total_score = 0
         self.round_score = 0
         self.die = dice.Dice()
+        self.highscore = highscore.Highscore()
 
     '''
     A method for rolling the die. It takes in a histogram,
@@ -34,6 +36,7 @@ class Player:
     to the total score and sets the round score to 0.'''
     def hold(self):
         self.total_score += self.round_score
+        self.highscore.new_highscore(self.name, self.round_score)
         self.round_score = 0
         return
 
