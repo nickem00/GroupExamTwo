@@ -1,6 +1,10 @@
+import tools
+
+
 class Highscore():
     def __init__(self):
         self.highscoreFile = 'highscore.txt'
+        self.tools = tools.Tools()
 
     '''
     A method for reading the highscores from the highscore file.
@@ -24,13 +28,19 @@ class Highscore():
     prints the highscores.
     '''
     def display_highscores(self):
+        self.tools.clear_screen()
         highscores = self.read_highscores()
         if highscores:
             print("Highscores:")
-            for player, score in highscores.items():
-                print(f"{player}: {score}")
+            print("-----------\n")
+            i = 0
+            for player, score in list(highscores.items())[:5]:
+                i += 1
+                print(f"{i}. {player}: {score}")
+            print()
         else:
             print("No highscores found.")
+        self.tools.enter_to_continue()
 
     '''
     A method for checking if a player has a highscore. Not sure if
@@ -40,7 +50,7 @@ class Highscore():
     True if the new score is higher than the old one, else False. If the player
     does not have a highscore, the method will return True.
     '''
-    def check_if_highscore(self, player_name, player_score):
+    def is_highscore(self, player_name, player_score):
         highscores = self.read_highscores()
         if player_name in highscores:
             if player_score > highscores[player_name]:
@@ -66,11 +76,15 @@ class Highscore():
         if player_name in highscores:
             if player_score > highscores[player_name]:
                 highscores[player_name] = player_score
+                print(f'New highscore! ({player_score}) Your highest '
+                      'score is now saved!')
+                self.tools.enter_to_continue()
             else:
-                print('You already have a highscore higher than this one!')
+                pass
         else:
             highscores[player_name] = player_score
-            print('Congratulations! You have a new highscore!')
+            print('Congratulations! Your highest score is now saved!')
+            self.tools.enter_to_continue()
 
         highscore_sorting = highscores.items()
         sorted_list = sorted(highscore_sorting,

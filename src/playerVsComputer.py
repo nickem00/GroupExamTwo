@@ -9,6 +9,7 @@ from exceptions import (GameExitException, RolledAOneException,
                         ComputerWonException)
 import developer
 import histogram
+import highscore
 
 
 class PlayerVsComputer():
@@ -24,6 +25,7 @@ class PlayerVsComputer():
         self.intelligence = intelligence.Intelligence()
         self.developer = developer.Developer()
         self.histogram = histogram.Histogram()
+        self.highscores = highscore.Highscore()
 
     '''
     A method for starting up the game. Also prints the main menu and
@@ -40,7 +42,8 @@ class PlayerVsComputer():
             '1': ('Start Game', self.start_game),
             '2': ('Show Rules', self.show_rules),
             '3': ('Change Name', self.change_name),
-            '4': ('Exit Game', None)
+            '4': ('Show Highscores', self.highscores.display_highscores),
+            '5': ('Exit Game', None)
         }
 
         while True:
@@ -53,8 +56,8 @@ class PlayerVsComputer():
                 time.sleep(2)
                 continue
 
-            if 1 <= choice <= 4:
-                if choice == 4:
+            if 1 <= choice <= 5:
+                if choice == 5:
                     self.tools.close_game()
                 elif main_menu_options[str(choice)][1]:
                     main_menu_options[str(choice)][1]()
@@ -152,7 +155,7 @@ class PlayerVsComputer():
                         input('Press enter to continue...')
                         break
                 elif choice == 2:
-                    game_menu_options[str(choice)][1]()
+                    game_menu_options[str(choice)][1](self.highscores)
                     self.tools.clear_screen()
                     if self.human_player.is_winning(100):
                         print(f'***Congratulations {self.human_player.name}!'
