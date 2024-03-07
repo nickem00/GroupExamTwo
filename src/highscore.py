@@ -3,8 +3,8 @@ import player
 
 class Highscore():
 
-    def init(self):
-        pass
+    def __init__(self):
+        self.highscore_file = "highscore.txt"
 
     def new_highscore(self, player_name, player_score, filename):
         current_highscore = self.highscore_tracker(filename)
@@ -14,15 +14,46 @@ class Highscore():
         else:
             pass
 
-    def highscore_tracker(self, filename):
-        with open(filename, "r") as highscore_file:
-            highscore_dictionary = {}
-            for line in highscore_file:
-                player, highscore = line.rstrip("\n").split(":")
-                highscore_dictionary[player] = int(highscore)
-            return highscore_dictionary
+    def highscore_tracker(self, highscore_file):
+            try:
+                with open(highscore_file, "r") as highscore_file:
+                    highscore_dictionary = {}
+                    for line in highscore_file:
+                        player, highscore = line.rstrip("\n").split(":")
+                        highscore_dictionary[player] = int(highscore)
+                    return highscore_dictionary
+            except FileNotFoundError:
+                print("Error: File not found")
+                return {}  
 
-    def save_new_highscore(self, player_name, player_score, filename):
-        with open(filename, "w") as highscore_file:
-            for player, score in highscore_file:
-                highscore_file.write(f"{player} with a score of: {score}")
+    def save_new_highscore(self, player_name, player_score):
+        try:
+            highscores = self.highscore_tracker(self.highscore_file)
+            highscores[player_name] = player_score
+
+            with open(self.highscore_file, "w") as highscore_file:
+                for player, score in highscores.items():
+                    highscore_file.write(f"{player}: {score}\n")
+                
+        except FileNotFoundError:
+            print("Error: File not found")
+
+
+    #This function displays the top 5 highscores from the highscore_file.
+    def display_highscore(self, highscore_file):
+        with open(highscore_file, "r") as top_scores:
+            highscores = [line.strip() for line in top_scores]
+            highscores_reversed = highscores[::-1]
+
+            if highscores:
+                print("--Highscore leaderboard--")
+                count = 0
+                for items in highscores_reversed:
+                    name, scores = items.split(":")
+                    print(f"{name}: {scores}")
+                    count += 1
+                    if count >= 5:
+                        break            
+            else:
+                print("No highscores have been added")
+            
