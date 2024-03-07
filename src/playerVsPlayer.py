@@ -1,6 +1,7 @@
 import intelligence
 import player
 import settingsClass
+import highscore
 import rules
 import developer
 import histogram
@@ -26,10 +27,12 @@ class PlayerVsPlayer:
         self.intelligence = intelligence.Intelligence()
         self.developer = developer.Developer()
         self.histogram = histogram.Histogram()
+        self.highscores = highscore.Highscore()
         self.main_menu_options = [
             '1. Start Game\n',
-            '2. Show Rules\n',
-            '3. Exit Game\n'
+            '2. Show Rules\n'
+            '3. Show Highscores\n',
+            '4. Exit Game\n'
         ]
         self.game_menu_options = [
             '1. Roll\n',
@@ -62,15 +65,17 @@ class PlayerVsPlayer:
                 time.sleep(2)
                 continue
 
-            if 1 <= choice <= 3:
-                if choice == 3:
+            if 1 <= choice <= 4:
+                if choice == 4:
                     self.tools.close_game()
+                elif choice == 3:
+                    self.highscores.display_highscores()
                 elif choice == 2:
                     self.all_rules.show_rules()
                 else:
                     self.start_game()
             else:
-                print('Please enter a valid choice! Error: Not in range 1-3')
+                print('Please enter a valid choice! Error: Not in range 1-4')
                 continue
 
     '''
@@ -129,7 +134,7 @@ class PlayerVsPlayer:
                 elif choice == 3:
                     self.all_rules.show_rules()
                 elif choice == 2:
-                    player.hold()
+                    player.hold(self.highscores)
                     self.tools.clear_screen()
                     if player.is_winning(100):
                         print(f'***Congratulations {player.name}!'
