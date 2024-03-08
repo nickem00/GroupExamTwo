@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from oopython.src import tools
+import oopython.src.tools as tools
 from oopython.src import rules
 
 
@@ -10,11 +10,12 @@ class TestRulesClass(unittest.TestCase):
         r = rules.Rules()
         self.assertIsInstance(r.tools, tools.Tools)
 
+    @patch('builtins.input')
+    @patch('oopython.src.tools.Tools.clear_screen')
+    @patch('oopython.src.tools.Tools.enter_to_continue')
     @patch('builtins.print')
-    @patch('tools.Tools.clear_screen')
-    @patch('tools.Tools.enter_to_continue')
-    def test_show_rules(self, mock_enter_to_continue, mock_clear_screen,
-                        mock_print):
+    def test_show_rules(self, mock_print, mock_clear_screen,
+                        mock_enter_to_continue, mock_input):
         r = rules.Rules()
         r.show_rules()
         mock_print.assert_called_with('''Welcome to the PIG Dice Game!

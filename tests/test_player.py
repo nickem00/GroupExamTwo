@@ -62,7 +62,8 @@ class TestPlayerClass(unittest.TestCase):
     def test_hold(self):
         p = player.Player('Test')
         p.round_score = 5
-        p.hold()
+        highscores = MagicMock()
+        p.hold(highscores)
         self.assertEqual(p.total_score, 5)
         self.assertEqual(p.round_score, 0)
 

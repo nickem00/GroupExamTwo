@@ -1,5 +1,5 @@
-import dice
-from exceptions import RolledAOneException
+from oopython.src import dice
+from oopython.src.exceptions import RolledAOneException
 import tools
 
 
