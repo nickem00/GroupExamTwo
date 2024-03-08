@@ -1,9 +1,9 @@
-from tools import Tools
+import tools
 
 
 class Rules:
     def __init__(self):
-        self.tools = Tools()
+        self.tools = tools.Tools()
 
     '''
     Method to show the rules of the game.
