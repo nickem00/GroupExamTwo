@@ -1,4 +1,5 @@
 import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.
-                                                dirname(__file__), 'src')))
+from pathlib import Path
+
+# Lägg till src-katalogen till sys.path för att tillåta import av moduler
+sys.path.append(str(Path(__file__).parent.resolve() / "src"))

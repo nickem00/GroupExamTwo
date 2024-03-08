@@ -1,37 +1,42 @@
 import unittest
 from unittest.mock import patch
 from oopython.src import main
-from unittest.mock import MagicMock
 
 
 class TestMainClass(unittest.TestCase):
 
-    @patch('builtins.input', side_effect=['1'])
-    def test_option_one(self):
-        main.tools.Tools.clear_screen = MagicMock()
-        main.playerVsComputer.PlayerVsComputer.game_startup = MagicMock()
-        main.main()
-        main.tools.Tools.clear_screen.assert_called()
-        main.playerVsComputer.PlayerVsComputer.game_startup.assert_called()
-
-    @patch('builtins.input', side_effect=['2'])
-    def test_option_two(self):
-        main.tools.Tools.clear_screen = MagicMock()
-        main.playerVsPlayer.PlayerVsPlayer.game_startup = MagicMock()
-        main.main()
-        main.tools.Tools.clear_screen.assert_called()
-        main.playerVsPlayer.PlayerVsPlayer.game_startup.assert_called()
-
-    @patch('builtins.input', side_effect=['0'])
-    def test_option_zero(self):
-        main.tools.Tools.clear_screen = MagicMock()
-        main.main()
-        main.tools.Tools.clear_screen.assert_called()
-
-    @patch('builtins.input', side_effect=['3', '1'])
+    @patch('oopython.src.tools.Tools.clear_screen')
+    @patch('oopython.src.main.playerVsComputer.PlayerVsComputer.game_startup')
     @patch('builtins.print')
-    def test_invalid_option(self, mock_print):
-        main.tools.Tools.clear_screen = MagicMock()
+    @patch('builtins.input', side_effect=['1'])
+    def test_option_one(self, mock_input, mock_print, mock_clear_screen,
+                        mock_game_startup):
         main.main()
-        main.tools.Tools.clear_screen.assert_called()
+        mock_clear_screen.assert_called()
+        mock_print.assert_called()
+        mock_input.assert_called()
+
+    @patch('oopython.src.tools.Tools.clear_screen')
+    @patch('oopython.src.main.playerVsPlayer.PlayerVsPlayer.game_startup')
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['2'])
+    def test_option_two(self, mock_input, mock_print, mock_clear_screen,
+                        mock_game_startup):
+        main.main()
+        mock_clear_screen.assert_called()
+        mock_input.assert_called()
+        mock_print.assert_called()
+
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['0'])
+    def test_option_zero(self, mock_input, mock_print):
+        main.main()
+        mock_input.assert_called()
+        mock_print.assert_called()
+
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['0'])
+    def test_wrong_input(self, mock_input, mock_print):
+        main.main()
+        mock_input.assert_called()
         mock_print.assert_called()

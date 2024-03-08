@@ -1,4 +1,4 @@
-from oopython.src import tools
+import tools
 
 
 class Rules:
