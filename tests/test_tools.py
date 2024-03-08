@@ -6,16 +6,15 @@ class TestTools(unittest.TestCase):
     def test_init_(self):
         self.tools = tools.Tools()
 
-    @patch('os.name')
-    def test_clear_screen_windows(self, mock_os_name):
-        mock_os.return_value = 'nt'
-        self.tools.clear_screen()
+    @patch("os.name", "nt")
+    @patch('os.system')
+    def test_clear_screen_windows(self, mock_os_system):
         self.tools.clear_screen()
         mock_os_system.assert_called_with('cls')
 
-    @patch('os.name')
-    def test_clear_screen_unix(self, mock_os_name):
-            mock_os.return_value = 'posix'
+    @patch("os.name", "posix")
+    @patch('os.system')
+    def test_clear_screen_unix(self, mock_os_system):
             self.tools.clear_screen()
             mock_os_system.assert_called_with('clear')
     
@@ -34,6 +33,7 @@ class TestTools(unittest.TestCase):
 
     
     def test_enter_to_continue(self):
-         with patch("bultin.input", return_value = ""):
-              self.tools.enter_to_continue()
-              self.assertTrue(self.tools.clear_screen.called)
+         with patch("builtins.input", return_value = ""):
+                with patch.object(tools.Tools, "clear_screen"):
+                    self.tools.enter_to_continue()
+                    self.tools.clear_screen.assert_called_with()
