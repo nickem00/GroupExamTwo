@@ -1,4 +1,4 @@
-# OO Python Game
+# Pig Dice Game
 
 This is a game developed in Python using object-oriented programming principles. The game supports player vs computer and player vs player modes.
 
