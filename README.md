@@ -1,4 +1,4 @@
-# OO Python Game
+# Pig Dice Game
 
 This is a game developed in Python using object-oriented programming principles. The game supports player vs computer and player vs player modes.
 
@@ -61,19 +61,19 @@ We have implemented a test suite to ensure the codes reliability and effectievne
 
 2. **Install Required Packages**: To ensure that you will be able to run the tests you have to have the necessary packages installed. You can intall them using this command in the terminal:
 
-`pip install -r requirements.txt`
+    `pip install -r requirements.txt`
 
 3. **Run Tests**: To run the complete test suite, execute the below command in the terminal:
 
-`pytest`
+    `pytest`
 
 4. **Generate Coverage Report**: To generate a coverage report for the test, execute the below command in the  terminal:
 
-`coverage run -m pytest`
+    `coverage run -m pytest`
 
 5. **Generate an HTML Coverage Report**: To generate an HTML coverage report for the test, execute the below command in the  terminal: 
 
-`coverage html`
+    `coverage html`
 
 This will generate an HTML report in the "htmlcov" directory. To open the report you can open the "index.html" file in your web browser.
 
