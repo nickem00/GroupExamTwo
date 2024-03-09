@@ -3,3 +3,5 @@ highscore.txt
 .venv/
 .coverage
 htmlcov/
+.pytest_cache/
+__pycache__/
