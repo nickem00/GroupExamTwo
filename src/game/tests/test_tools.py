@@ -1,23 +1,27 @@
 import unittest
 from unittest.mock import patch
 import tools
-import os
 
 
 class TestToolsClass(unittest.TestCase):
 
-    @patch('os.system')
-    def test_clear_screen(self, mock_system):
+    @patch("os.system")
+    @patch('os.name', 'nt')
+    def test_clear_screen_windows(self, mock_system):
         t = tools.Tools()
         t.clear_screen()
-        if os.name == 'nt':
-            mock_system.assert_called_with('cls')
-        else:
-            mock_system.assert_called_with('clear')
+        mock_system.assert_called_with('cls')
+
+    @patch("os.system")
+    @patch('os.name', 'posix')
+    def test_clear_screen_linux(self, mock_system):
+        t = tools.Tools()
+        t.clear_screen()
+        mock_system.assert_called_with('clear')
 
     @patch("sys.exit")
     @patch("builtins.print")
-    def test_close_game(self,mock_print, mock_exit):
+    def test_close_game(self, mock_print, mock_exit):
         t = tools.Tools()
         t.close_game()
         mock_print.assert_called_with('Thank you for playing!')
@@ -36,7 +40,3 @@ class TestToolsClass(unittest.TestCase):
         t.enter_to_continue()
         mock_input.assert_called()
         mock_clear_screen.assert_called()
-
-
-
-        
