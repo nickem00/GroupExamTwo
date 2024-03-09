@@ -1,5 +1,5 @@
 import unittest
-from oopython.src.game import settingsClass
+import settingsClass
 from unittest.mock import patch
 
 
