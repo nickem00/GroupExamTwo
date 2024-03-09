@@ -59,10 +59,8 @@ class PlayerVsComputer():
             if 1 <= choice <= 5:
                 if choice == 5:
                     self.tools.close_game()
-                elif main_menu_options[str(choice)][1]:
-                    main_menu_options[str(choice)][1]()
                 else:
-                    print('This option is not implemented yet.')
+                    main_menu_options[str(choice)][1]()
             else:
                 print('Please enter a valid choice!')
 
