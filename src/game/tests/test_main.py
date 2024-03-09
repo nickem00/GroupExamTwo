@@ -17,7 +17,3 @@ class TestMainClass(unittest.TestCase):
         mock_print.assert_called_with('Welcome to the Game!')
         mock_input.assert_called()
         mock_game_startup.assert_called_once()
-
-
-if __name__ == '__main__':
-    unittest.main()
