@@ -52,4 +52,8 @@ lint:
 	@$(VENV)/Scripts/pylint $(SRC)
 
 test:
-	@$(VENV)/Scripts/pytest $(TESTS)
+	@$(MESSAGE) "Running tests with coverage..."
+	@$(VENV)/Scripts/coverage run -m pytest $(TESTS)
+	@$(VENV)/Scripts/coverage report -m
+	@$(VENV)/Scripts/coverage html
+# @$(VENV)/Scripts/pytest $(TESTS)
