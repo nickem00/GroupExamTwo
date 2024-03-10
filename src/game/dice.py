@@ -18,4 +18,6 @@ class Dice:
         the number of sides.
         """
         return random.randint(1, self.sides)
+
+
 # test

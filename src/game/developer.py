@@ -13,7 +13,7 @@ class Developer:
         Constructor for Developer class. Sets the password and creates
         a Tools object.
         """
-        self.password = 'asd'
+        self.password = "asd"
         self.tools = tools.Tools()
 
     def developer_menu(self, player):
@@ -26,16 +26,14 @@ class Developer:
         If the user enters 2, it will go back to the main menu.
         """
         self.tools.clear_screen()
-        password_try = input('Enter password: ')
+        password_try = input("Enter password: ")
         self.tools.clear_screen()
         if password_try == self.password:
-            print('Menu: \n',
-                  '1. Give 100 points to player\n',
-                  '2. Go back\n')
-            choice = int(input('>>> '))
+            print("Menu: \n", "1. Give 100 points to player\n", "2. Go back\n")
+            choice = int(input(">>> "))
             if choice == 1:
                 player.total_score = 100
-                print(f'{player.name} now has 100 points')
+                print(f"{player.name} now has 100 points")
                 self.tools.enter_to_continue()
                 self.tools.clear_screen()
             else:

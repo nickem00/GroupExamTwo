@@ -51,6 +51,9 @@ lint:
 	@$(VENV)/Scripts/flake8 $(SRC)
 	@$(VENV)/Scripts/pylint $(SRC)
 
+format:
+	@$(VENV)/Scripts/black $(SRC)
+
 test:
 	@$(MESSAGE) "Running tests with coverage..."
 	@$(VENV)/Scripts/coverage run -m pytest $(TESTS)

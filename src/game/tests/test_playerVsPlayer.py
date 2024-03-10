@@ -9,11 +9,12 @@ import histogram
 import highscore
 import intelligence
 from unittest.mock import patch, MagicMock
-from exceptions import (GameExitException, RolledAOneException)
+from exceptions import GameExitException, RolledAOneException
 
 
 class MockExitException(Exception):
     """Mock exception for sys.exit."""
+
     pass
 
 
@@ -33,103 +34,104 @@ class TestPlayerVsPlayerClass(unittest.TestCase):
         self.assertIsInstance(game.developer, developer.Developer)
         self.assertIsInstance(game.histogram, histogram.Histogram)
         self.assertIsInstance(game.highscores, highscore.Highscore)
-        self.assertEqual(game.main_menu_options, [
-            '1. Start Game\n',
-            '2. Show Rules\n'
-            '3. Show Highscores\n',
-            '4. Exit Game\n'
-        ])
-        self.assertEqual(game.game_menu_options, [
-            '1. Roll\n',
-            '2. Hold\n',
-            '3. Show Rules\n',
-            '4. Change Name\n',
-            '5. Show Histogram\n',
-            '6. Exit game (Points Reset)\n',
-            '7. Developer Menu\n'
-        ])
+        self.assertEqual(
+            game.main_menu_options,
+            [
+                "1. Start Game\n",
+                "2. Show Rules\n" "3. Show Highscores\n",
+                "4. Exit Game\n",
+            ],
+        )
+        self.assertEqual(
+            game.game_menu_options,
+            [
+                "1. Roll\n",
+                "2. Hold\n",
+                "3. Show Rules\n",
+                "4. Change Name\n",
+                "5. Show Histogram\n",
+                "6. Exit game (Points Reset)\n",
+                "7. Developer Menu\n",
+            ],
+        )
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=['Player 1', 'Player 2', 4])
-    @patch('tools.Tools.clear_screen')
-    @patch('sys.exit', side_effect=MockExitException)
-    def test_game_startup(self, mock_clear_screen, mock_input, mock_print,
-                          mock_exit):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["Player 1", "Player 2", 4])
+    @patch("tools.Tools.clear_screen")
+    @patch("sys.exit", side_effect=MockExitException)
+    def test_game_startup(self, mock_clear_screen, mock_input, mock_print, mock_exit):
         """Test the game_startup method."""
         game = playerVsPlayer.PlayerVsPlayer()
         with self.assertRaises(MockExitException):
             game.game_startup()
         mock_clear_screen.assert_called()
         mock_print.assert_called()
-        self.assertEqual(game.player_one.name, 'Player 1')
-        self.assertEqual(game.player_two.name, 'Player 2')
+        self.assertEqual(game.player_one.name, "Player 1")
+        self.assertEqual(game.player_two.name, "Player 2")
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=['Player 1', 'Player 2',
-                                          5, 'a', 4])
-    @patch('tools.Tools.clear_screen')
-    @patch('time.sleep')
-    @patch('sys.exit', side_effect=MockExitException)
-    def test_game_startup_wrong_input(self, mock_exit, mock_sleep,
-                                      mock_clear_screen, mock_input,
-                                      mock_print):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["Player 1", "Player 2", 5, "a", 4])
+    @patch("tools.Tools.clear_screen")
+    @patch("time.sleep")
+    @patch("sys.exit", side_effect=MockExitException)
+    def test_game_startup_wrong_input(
+        self, mock_exit, mock_sleep, mock_clear_screen, mock_input, mock_print
+    ):
         """Test the game_startup method with wrong input."""
         game = playerVsPlayer.PlayerVsPlayer()
         with self.assertRaises(MockExitException):
             game.game_startup()
         mock_clear_screen.assert_called()
         mock_print.assert_called()
-        self.assertEqual(game.player_one.name, 'Player 1')
-        self.assertEqual(game.player_two.name, 'Player 2')
+        self.assertEqual(game.player_one.name, "Player 1")
+        self.assertEqual(game.player_two.name, "Player 2")
 
-    @patch('builtins.print')
-    @patch('playerVsPlayer.PlayerVsPlayer.start_round')
-    @patch('tools.Tools.enter_to_continue')
-    def test_start_game(self, mock_enter_to_continue, mock_start_round,
-                        mock_print):
+    @patch("builtins.print")
+    @patch("playerVsPlayer.PlayerVsPlayer.start_round")
+    @patch("tools.Tools.enter_to_continue")
+    def test_start_game(self, mock_enter_to_continue, mock_start_round, mock_print):
         """Test the start_game method."""
         mock_start_round.side_effect = [None, None, None, GameExitException]
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
-        game.player_two = player.Player('Player 2')
+        game.player_one = player.Player("Player 1")
+        game.player_two = player.Player("Player 2")
         game.start_game()
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=['a', 1, 6])
-    @patch('player.Player.roll_die', return_value=2)
-    @patch('time.sleep')
-    def test_start_round_option_one(self, mock_sleep, mock_roll_die,
-                                    mock_input, mock_print):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["a", 1, 6])
+    @patch("player.Player.roll_die", return_value=2)
+    @patch("time.sleep")
+    def test_start_round_option_one(
+        self, mock_sleep, mock_roll_die, mock_input, mock_print
+    ):
         """
         Test the start_round method with option one. Also tests the
         ValueError exception.
         """
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
-        game.player_two = player.Player('Player 2')
+        game.player_one = player.Player("Player 1")
+        game.player_two = player.Player("Player 2")
         with self.assertRaises(GameExitException):
             game.start_round(0, game.player_one)
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[1, 6])
-    @patch('time.sleep')
-    def test_start_round_rolled_a_one(self, mock_sleep,
-                                      mock_input, mock_print):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[1, 6])
+    @patch("time.sleep")
+    def test_start_round_rolled_a_one(self, mock_sleep, mock_input, mock_print):
         """Test the start_round method with the RolledAOneException."""
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
-        game.player_two = player.Player('Player 2')
+        game.player_one = player.Player("Player 1")
+        game.player_two = player.Player("Player 2")
         game.player_one.roll_die = MagicMock(side_effect=RolledAOneException)
         game.start_round(0, game.player_one)
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[2, 6])
-    @patch('time.sleep')
-    def test_start_round_hold_winning(self, mock_sleep, mock_input,
-                                      mock_print):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[2, 6])
+    @patch("time.sleep")
+    def test_start_round_hold_winning(self, mock_sleep, mock_input, mock_print):
         """Test the start_round method with option two and winning."""
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
+        game.player_one = player.Player("Player 1")
         game.player_one.total_score = 100
         game.player_one.hold = MagicMock()
         with self.assertRaises(GameExitException):
@@ -137,12 +139,12 @@ class TestPlayerVsPlayerClass(unittest.TestCase):
         self.assertEqual(game.player_one.total_score, 100)
         game.player_one.hold.assert_called()
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[2, 6])
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[2, 6])
     def test_start_round_hold_not_winning(self, mock_input, mock_print):
         """Test the start_round method with option two and not winning."""
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
+        game.player_one = player.Player("Player 1")
         game.player_one.total_score = 0
         game.player_one.hold = MagicMock()
         game.print_points = MagicMock()
@@ -151,56 +153,57 @@ class TestPlayerVsPlayerClass(unittest.TestCase):
         game.player_one.hold.assert_called()
         game.print_points.assert_called()
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[3, 6])
-    @patch('tools.Tools.enter_to_continue')
-    def test_start_round_show_rules(self, mock_enter_to_continue, mock_input,
-                                    mock_print):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[3, 6])
+    @patch("tools.Tools.enter_to_continue")
+    def test_start_round_show_rules(
+        self, mock_enter_to_continue, mock_input, mock_print
+    ):
         """Test the start_round method with option three."""
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
+        game.player_one = player.Player("Player 1")
         game.all_rules.show_rules = MagicMock()
         with self.assertRaises(GameExitException):
             game.start_round(0, game.player_one)
         mock_print.assert_called()
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[4, 1, 'New_name', 6])
-    @patch('tools.Tools.enter_to_continue')
-    @patch('time.sleep')
-    def test_change_name_player_one(self, mock_sleep,
-                                    mock_enter_to_continue,
-                                    mock_input, mock_print):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[4, 1, "New_name", 6])
+    @patch("tools.Tools.enter_to_continue")
+    @patch("time.sleep")
+    def test_change_name_player_one(
+        self, mock_sleep, mock_enter_to_continue, mock_input, mock_print
+    ):
         """
         Test the start_round method with option four, which changes the
         name of player one.
         """
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
-        game.player_two = player.Player('Player 2')
+        game.player_one = player.Player("Player 1")
+        game.player_two = player.Player("Player 2")
         with self.assertRaises(GameExitException):
             game.start_round(0, game.player_one)
-        self.assertEqual(game.player_one.name, 'New_name')
-        self.assertEqual(game.player_two.name, 'Player 2')
+        self.assertEqual(game.player_one.name, "New_name")
+        self.assertEqual(game.player_two.name, "Player 2")
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[4, 'a', 2, 'New_name', 6])
-    @patch('tools.Tools.enter_to_continue')
-    @patch('time.sleep')
-    def test_change_name_player_two(self, mock_sleep,
-                                    mock_enter_to_continue,
-                                    mock_input, mock_print):
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[4, "a", 2, "New_name", 6])
+    @patch("tools.Tools.enter_to_continue")
+    @patch("time.sleep")
+    def test_change_name_player_two(
+        self, mock_sleep, mock_enter_to_continue, mock_input, mock_print
+    ):
         """
         Test the start_round method with option four, which changes the
         name of player two.
         """
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
-        game.player_two = player.Player('Player 2')
+        game.player_one = player.Player("Player 1")
+        game.player_two = player.Player("Player 2")
         with self.assertRaises(GameExitException):
             game.start_round(1, game.player_two)
-        self.assertEqual(game.player_two.name, 'New_name')
-        self.assertEqual(game.player_one.name, 'Player 1')
+        self.assertEqual(game.player_two.name, "New_name")
+        self.assertEqual(game.player_one.name, "Player 1")
         mock_sleep.assert_called_with(2)
 
     def test_show_rules(self):
@@ -210,39 +213,39 @@ class TestPlayerVsPlayerClass(unittest.TestCase):
         game.show_rules()
         self.assertTrue(game.all_rules.show_rules.called)
 
-    @patch('builtins.print')
+    @patch("builtins.print")
     def test_print_points(self, mock_print):
         """Test the print_points method."""
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
-        game.player_two = player.Player('Player 2')
+        game.player_one = player.Player("Player 1")
+        game.player_two = player.Player("Player 2")
         game.print_points()
         self.assertTrue(mock_print.called)
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[5, 6])
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[5, 6])
     def test_option_five_game_menu(self, mock_input, mock_print):
         """Tests the option five in the game menu."""
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
+        game.player_one = player.Player("Player 1")
         game.histogram.show_histogram = MagicMock()
         with self.assertRaises(GameExitException):
             game.start_round(0, game.player_one)
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=[7, 6])
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=[7, 6])
     def test_option_six_game_menu(self, mock_input, mock_print):
         """Tests the option six in the game menu."""
         game = playerVsPlayer.PlayerVsPlayer()
-        game.player_one = player.Player('Player 1')
+        game.player_one = player.Player("Player 1")
         game.developer.developer_menu = MagicMock()
         with self.assertRaises(GameExitException):
             game.start_round(0, game.player_one)
         self.assertTrue(game.developer.developer_menu.called)
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=['player_one', 'player_two', 3, 4])
-    @patch('sys.exit', side_effect=MockExitException)
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["player_one", "player_two", 3, 4])
+    @patch("sys.exit", side_effect=MockExitException)
     def test_option_three_main_menu(self, mock_input, mock_print, mock_exit):
         """Test the option three in the main menu."""
         game = playerVsPlayer.PlayerVsPlayer()
@@ -251,9 +254,9 @@ class TestPlayerVsPlayerClass(unittest.TestCase):
             game.game_startup()
         self.assertTrue(game.highscores.display_highscores.called)
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=['player_one', 'player_two', 2, 4])
-    @patch('sys.exit', side_effect=MockExitException)
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["player_one", "player_two", 2, 4])
+    @patch("sys.exit", side_effect=MockExitException)
     def test_option_two_main_menu(self, mock_input, mock_print, mock_exit):
         """Test the option two in the main menu."""
         game = playerVsPlayer.PlayerVsPlayer()
@@ -262,9 +265,9 @@ class TestPlayerVsPlayerClass(unittest.TestCase):
             game.game_startup()
         self.assertTrue(game.all_rules.show_rules.called)
 
-    @patch('builtins.print')
-    @patch('builtins.input', side_effect=['player_one', 'player_two', 1, 4])
-    @patch('sys.exit', side_effect=MockExitException)
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["player_one", "player_two", 1, 4])
+    @patch("sys.exit", side_effect=MockExitException)
     def test_start_game_main_menu(self, mock_input, mock_print, mock_exit):
         """Test the start_game method from the main menu."""
         game = playerVsPlayer.PlayerVsPlayer()

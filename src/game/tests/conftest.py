@@ -10,5 +10,5 @@ def pytest_configure():
     at the same time.
     """
     current_dir = os.path.dirname(__file__)
-    game_dir = os.path.join(current_dir, '..')
+    game_dir = os.path.join(current_dir, "..")
     sys.path.insert(0, game_dir)

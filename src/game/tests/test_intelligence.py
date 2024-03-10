@@ -22,9 +22,9 @@ class TestIntelligenceClass(unittest.TestCase):
         self.assertEqual(i.rolls, [])
         self.assertIsInstance(i.tools, tools.Tools)
 
-    @patch('intelligence.Intelligence.easy')
-    @patch('intelligence.Intelligence.medium')
-    @patch('intelligence.Intelligence.hard')
+    @patch("intelligence.Intelligence.easy")
+    @patch("intelligence.Intelligence.medium")
+    @patch("intelligence.Intelligence.hard")
     def test_start_round(self, mock_hard, mock_medium, mock_easy):
         """Tests the start_round method of the Intelligence class."""
         i = intelligence.Intelligence()
@@ -38,7 +38,7 @@ class TestIntelligenceClass(unittest.TestCase):
         i.start_round(3, histogram)
         mock_hard.assert_called_with(histogram)
 
-    @patch('builtins.print')
+    @patch("builtins.print")
     def test_start_round_error(self, mock_print):
         """
         Tests the start_round method of the Intelligence class when
@@ -47,9 +47,9 @@ class TestIntelligenceClass(unittest.TestCase):
         i = intelligence.Intelligence()
         histogram = MagicMock()
         i.start_round(4, histogram)
-        mock_print.assert_called_with('Error: Difficulty not set')
+        mock_print.assert_called_with("Error: Difficulty not set")
 
-    @patch('intelligence.random.randint', return_value=1)
+    @patch("intelligence.random.randint", return_value=1)
     def test_easy_one(self, mock_randint):
         """
         Tests the easy method of the Intelligence class when the die
@@ -62,7 +62,7 @@ class TestIntelligenceClass(unittest.TestCase):
         self.assertEqual(i.round_score, 0)
         histogram.add_to_histogram.assert_called_with(1)
 
-    @patch('intelligence.random.randint', return_value=1)
+    @patch("intelligence.random.randint", return_value=1)
     def test_easy_not_one(self, mock_randint):
         """
         Tests the easy method of the Intelligence class when the die
@@ -76,7 +76,7 @@ class TestIntelligenceClass(unittest.TestCase):
         self.assertEqual(i.round_score, 2)
         histogram.add_to_histogram.assert_called_with(2)
 
-    @patch('intelligence.random.randint', return_value=1)
+    @patch("intelligence.random.randint", return_value=1)
     def test_medium_one(self, mock_randint):
         """
         Tests the medium method of the Intelligence class when the die
@@ -89,7 +89,7 @@ class TestIntelligenceClass(unittest.TestCase):
         self.assertEqual(i.round_score, 0)
         histogram.add_to_histogram.assert_called_with(1)
 
-    @patch('intelligence.random.randint', return_value=1)
+    @patch("intelligence.random.randint", return_value=1)
     def test_medium_not_one(self, mock_randint):
         """
         Tests the medium method of the Intelligence class when the die
@@ -103,7 +103,7 @@ class TestIntelligenceClass(unittest.TestCase):
         self.assertEqual(i.round_score, 2)
         histogram.add_to_histogram.assert_called_with(2)
 
-    @patch('intelligence.random.randint', return_value=1)
+    @patch("intelligence.random.randint", return_value=1)
     def test_hard_one(self, mock_randint):
         """
         Tests the hard method of the Intelligence class when the die
@@ -116,7 +116,7 @@ class TestIntelligenceClass(unittest.TestCase):
         self.assertEqual(i.round_score, 0)
         histogram.add_to_histogram.assert_called_with(1)
 
-    @patch('intelligence.random.randint', return_value=1)
+    @patch("intelligence.random.randint", return_value=1)
     def test_hard_not_one(self, mock_randint):
         """
         Tests the hard method of the Intelligence class when the die
@@ -166,7 +166,7 @@ class TestIntelligenceClass(unittest.TestCase):
         i.total_score = 99
         self.assertFalse(i.is_winning(winning_score))
 
-    @patch('builtins.print')
+    @patch("builtins.print")
     def test_hold(self, mock_print):
         """Tests the hold method of the Intelligence class."""
         i = intelligence.Intelligence()
