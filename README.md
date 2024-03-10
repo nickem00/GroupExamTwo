@@ -54,11 +54,10 @@ Depending on the game mode chosen, the game menu will display different options:
 
 ## How to Download and Use the Code
 
-1. Download the ZIP-file that contains the code through this link: *Insert link*
-2. Extract the ZIP-file to any location on your computer.
-3. Open a Python-compatible editor.
-4. Open the folder as a project.
-5. You can now edit the code as you see fit and/or play the game as described in the "How to play" section of this README.md file.
+1. Clone the repository by running the following command in your terminal:
+
+    ```bash
+    git clone https://github.com/nickem00/GroupExamTwo.git
 
 ## How to Run Tests and Generate Coverage Report
 
