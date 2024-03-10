@@ -2,13 +2,22 @@ import tools
 
 
 class Rules:
+    """
+    This class contains the rules of the game, and a method to display
+    the rules of the game.
+    """
     def __init__(self):
+        """
+        Initialize the Rules class with a Tools object, to use the
+        clear_screen and enter_to_continue methods.
+        """
         self.tools = tools.Tools()
 
-    '''
-    Method to show the rules of the game.
-    '''
     def show_rules(self):
+        """
+        This method displays the rules of the game, with a few functions
+        from the Tools class for visual purposes.
+        """
         self.tools.clear_screen()
         print('''Welcome to the PIG Dice Game!
         Here are the rules:

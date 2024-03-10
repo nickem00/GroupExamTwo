@@ -2,13 +2,12 @@ import playerVsComputer
 import playerVsPlayer
 import tools
 
-'''
-Main method for the game.
-Contains the Start Menu and the game loop.
-'''
-
 
 def run_game():
+    """
+    A function to run the game. It will prompt the user to choose between
+    Player vs Computer, Player vs Player, or Exit.
+    """
     while True:
         tools.Tools().clear_screen()
         print("Welcome to the Game!")

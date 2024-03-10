@@ -57,3 +57,11 @@ test:
 	@$(VENV)/Scripts/coverage report -m
 	@$(VENV)/Scripts/coverage html
 # @$(VENV)/Scripts/pytest $(TESTS)
+
+# ---------------------------------------------------------
+# Build Sphinx HTML documentation.
+#
+html:
+	@$(MESSAGE) "Building Sphinx HTML documentation..."
+	@test -d docs || mkdir docs
+	@cd docs; sphinx-build -b html . _build/html

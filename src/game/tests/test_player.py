@@ -7,8 +7,10 @@ from unittest.mock import MagicMock, patch
 
 
 class TestPlayer(unittest.TestCase):
+    """Test the Player class."""
 
     def test_player_constructor(self):
+        """Tests the constructor for the Player class."""
         player_name = 'Test'
         player = Player(player_name)
 
@@ -20,6 +22,9 @@ class TestPlayer(unittest.TestCase):
 
     @patch('dice.Dice.roll')
     def test_roll_die_one(self, mock_roll):
+        """
+        Tests the roll_die method of the Player class when the die
+        rolls a one."""
         player = Player('Test')
         mock_roll.return_value = 1
         histogram = MagicMock()
@@ -30,6 +35,10 @@ class TestPlayer(unittest.TestCase):
 
     @patch('dice.Dice.roll')
     def test_roll_die_not_one(self, mock_roll):
+        """
+        Tests the roll_die method of the Player class when the die
+        does not roll a one.
+        """
         player = Player('Test')
         mock_roll.return_value = 2
         histogram = MagicMock()
@@ -39,6 +48,7 @@ class TestPlayer(unittest.TestCase):
         histogram.add_to_histogram.assert_called_with(2)
 
     def test_hold(self):
+        """Tests the hold method of the Player class."""
         player = Player('Test')
         player.round_score = 5
         player.rolls = [3, 2]
@@ -49,6 +59,7 @@ class TestPlayer(unittest.TestCase):
         player.highscores.save_new_highscore.assert_called_with('Test', 5)
 
     def test_is_winning(self):
+        """Tests the is_winning method of the Player class."""
         player = Player('Test')
         player.total_score = 100
         winning_score = 100
@@ -57,10 +68,7 @@ class TestPlayer(unittest.TestCase):
         self.assertFalse(player.is_winning(winning_score))
 
     def test_set_name(self):
+        """Tests the set_name method of the Player class."""
         player = Player('Test')
         player.set_name('New Name')
         self.assertEqual(player.name, 'New Name')
-
-
-if __name__ == '__main__':
-    unittest.main()

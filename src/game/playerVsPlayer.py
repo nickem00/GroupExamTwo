@@ -12,12 +12,23 @@ from exceptions import (RolledAOneException,
 
 
 class PlayerVsPlayer:
+    """
+    The PlayerVsPlayer class is one of the main classes of the game.
+    This one is for the player vs player mode.
+    It is responsible for the game startup, the game itself, and the
+    main menu. The game is turn-based and the players take turns
+    playing the game. The game will continue to run until a player
+    wins the game or a GameExitException is raised (when the user
+    chooses to exit the game).
+    """
 
-    '''
-    Constructor of the Game class.
-    Contains main menu options and game menu options,
-    '''
     def __init__(self):
+        """
+        The constructor for the PlayerVsPlayer class. It initializes
+        the player_one and player_two to None, creates different objects
+        used in the game, and initializes the main menu and game menu
+        options.
+        """
         self.player_one = None
         self.player_two = None
         self.tools = tools.Tools()
@@ -44,11 +55,14 @@ class PlayerVsPlayer:
             '7. Developer Menu\n'
         ]
 
-    '''
-    A method for starting up the game. Also prints the main menu and
-    prompts the user to enter the names of two players.
-    '''
     def game_startup(self):
+        """
+        The method for the game startup (Main menu). The game is turn-based.
+        It prompts the user to enter the names of the players and then
+        starts the game. The game will continue to run until the user
+        chooses to exit the game. It also has an option to show the
+        rules of the game and the highscores.
+        """
         self.tools.clear_screen()
         print('Welcome to PIG Dice Game!')
         player1_name = input('Please enter the name of Player 1 >> ')
@@ -78,12 +92,17 @@ class PlayerVsPlayer:
                 print('Please enter a valid choice! Error: Not in range 1-4')
                 continue
 
-    '''
-    The method for starting the game. The game is turn-based.
-    If there somewhere in the game raises a GameExitException,
-    the game will exit and the scores will be reset.
-    '''
     def start_game(self):
+        """
+        This method starts the acual game. It is turn-based and will
+        continue to run until a player wins the game or a GameExitException
+        is raised (when the user chooses to exit the game). Uses modulos
+        to determine which player's turn it is. If the rounds variable
+        is even, it is player one's turn, and if it is odd, it is player
+        two's turn. Always shows the histogram of the game after the
+        GameExitException is raised.
+        More details about the game can be found in the start_round method.
+        """
         rounds = 0
         while True:
             try:
@@ -99,14 +118,30 @@ class PlayerVsPlayer:
                 self.show_histogram()
                 break
 
-    '''
-    The method for starting a round. The game is turn-based.
-    Prints the game menu and prompts the user to select an option.
-    Always checks if a player has won the game.
-    Prints the scores of the players after each turn using the
-    print_points method.
-    '''
     def start_round(self, rounds, player):
+        """
+        This method starts a round of the game. If its the first round,
+        it will print which player goes first, otherwise it will print
+        which player's turn it is. It will then prompt the user to choose
+        an option from the game menu. The game menu has the following
+        options:
+        1. Roll
+        2. Hold
+        3. Show Rules
+        4. Change Name
+        5. Show Histogram
+        6. Exit game (Points Reset)
+        7. Developer Menu
+        If the user chooses to roll, the player will roll the die and
+        the current roll will be printed. If the user chooses to hold,
+        the player will hold and the total score of the player will be
+        printed. If the player is winning, a congratulatory message will
+        be printed and a GameExitException will be raised.
+        Then there are some options for other small features, such as
+        showing the rules, changing the name of a player, showing the
+        histogram of the game, and the developer menu. More details about
+        these features can be found in the respective methods.
+        """
         self.tools.clear_screen()
 
         while True:
@@ -158,37 +193,38 @@ class PlayerVsPlayer:
                         self.tools.enter_to_continue()
                         break
 
-    '''
-    A method for printing the Main menu.
-    '''
     def print_main_menu(self):
+        """
+        A simple method for printing the main menu.
+        """
         print('---Main Menu---\n')
         for option in self.main_menu_options:
             print(option, end='')
         return
 
-    '''
-    A method for printing the Game menu.
-    '''
     def print_game_menu(self):
+        """
+        A simple method for printing the game menu.
+        """
         print('---Game Menu---\n')
         for option in self.game_menu_options:
             print(option, end='')
         return
 
-    '''
-    A method for displaying the rules of the game.
-    '''
     def show_rules(self):
+        """
+        A method for showing the rules of the game."""
         self.all_rules.show_rules()
         return
 
-    '''
-    The method for changing the name of a player.
-    Asks the user which player to change the name of, and then
-    prompts the user to enter a new name.
-    '''
     def change_name(self):
+        """
+        A method for changing the name of a player. It will prompt the
+        user to choose which player to change the name of, and then
+        prompt the user to enter the new name. If the user enters a
+        number that is not 1 or 2, it will prompt the user to enter a
+        valid choice.
+        """
         while True:
             try:
                 self.tools.clear_screen()
@@ -215,10 +251,8 @@ class PlayerVsPlayer:
                 continue
         return
 
-    '''
-    A method for printing the scores of the players.
-    '''
     def print_points(self):
+        """A method for printing the total score of the players."""
         print('Scores:\n'
               f'{self.player_one.name}: '
               f'{self.player_one.total_score}\n'
@@ -226,9 +260,7 @@ class PlayerVsPlayer:
               f'{self.player_two.total_score}\n')
         return
 
-    '''
-    A method for showing the histogram of the game.
-    '''
     def show_histogram(self):
+        """Calls the show_histogram method from the Histogram class."""
         self.histogram.show_histogram()
         return

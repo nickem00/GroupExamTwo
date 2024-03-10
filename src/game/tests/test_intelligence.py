@@ -8,8 +8,10 @@ from exceptions import RolledAOneException
 
 
 class TestIntelligenceClass(unittest.TestCase):
+    """Test the Intelligence class."""
 
     def test_init(self):
+        """Tests the constructor for the Intelligence class."""
         i = intelligence.Intelligence()
         self.assertEqual(i.name, "Computer")
         self.assertEqual(i.difficulty, 0)
@@ -24,6 +26,7 @@ class TestIntelligenceClass(unittest.TestCase):
     @patch('intelligence.Intelligence.medium')
     @patch('intelligence.Intelligence.hard')
     def test_start_round(self, mock_hard, mock_medium, mock_easy):
+        """Tests the start_round method of the Intelligence class."""
         i = intelligence.Intelligence()
         histogram = MagicMock()
         i.start_round(1, histogram)
@@ -37,6 +40,10 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('builtins.print')
     def test_start_round_error(self, mock_print):
+        """
+        Tests the start_round method of the Intelligence class when
+        the difficulty is not set.
+        """
         i = intelligence.Intelligence()
         histogram = MagicMock()
         i.start_round(4, histogram)
@@ -44,6 +51,10 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('intelligence.random.randint', return_value=1)
     def test_easy_one(self, mock_randint):
+        """
+        Tests the easy method of the Intelligence class when the die
+        rolls a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=1)
         histogram = MagicMock()
@@ -53,6 +64,10 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('intelligence.random.randint', return_value=1)
     def test_easy_not_one(self, mock_randint):
+        """
+        Tests the easy method of the Intelligence class when the die
+        does not roll a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=2)
         histogram = MagicMock()
@@ -63,6 +78,10 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('intelligence.random.randint', return_value=1)
     def test_medium_one(self, mock_randint):
+        """
+        Tests the medium method of the Intelligence class when the die
+        rolls a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=1)
         histogram = MagicMock()
@@ -72,6 +91,10 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('intelligence.random.randint', return_value=1)
     def test_medium_not_one(self, mock_randint):
+        """
+        Tests the medium method of the Intelligence class when the die
+        does not roll a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=2)
         histogram = MagicMock()
@@ -82,6 +105,10 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('intelligence.random.randint', return_value=1)
     def test_hard_one(self, mock_randint):
+        """
+        Tests the hard method of the Intelligence class when the die
+        rolls a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=1)
         histogram = MagicMock()
@@ -91,6 +118,10 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('intelligence.random.randint', return_value=1)
     def test_hard_not_one(self, mock_randint):
+        """
+        Tests the hard method of the Intelligence class when the die
+        does not roll a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=2)
         histogram = MagicMock()
@@ -100,6 +131,10 @@ class TestIntelligenceClass(unittest.TestCase):
         histogram.add_to_histogram.assert_called_with(2)
 
     def test_roll_die_one(self):
+        """
+        Tests the roll_die method of the Intelligence class when the die
+        rolls a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=1)
         histogram = MagicMock()
@@ -109,6 +144,10 @@ class TestIntelligenceClass(unittest.TestCase):
         histogram.add_to_histogram.assert_called_with(1)
 
     def test_roll_die_not_one(self):
+        """
+        Tests the roll_die method of the Intelligence class when the die
+        does not roll a one.
+        """
         i = intelligence.Intelligence()
         i.die.roll = MagicMock(return_value=2)
         histogram = MagicMock()
@@ -118,6 +157,7 @@ class TestIntelligenceClass(unittest.TestCase):
         histogram.add_to_histogram.assert_called_with(2)
 
     def test_is_winning(self):
+        """Tests the is_winning method of the Intelligence class."""
         i = intelligence.Intelligence()
         winning_score = 100
         i.total_score = 100
@@ -128,6 +168,7 @@ class TestIntelligenceClass(unittest.TestCase):
 
     @patch('builtins.print')
     def test_hold(self, mock_print):
+        """Tests the hold method of the Intelligence class."""
         i = intelligence.Intelligence()
         i.round_score = 5
         i.hold()

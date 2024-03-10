@@ -15,12 +15,15 @@ from exceptions import (GameExitException, RolledAOneException,
 
 
 class MockExitException(Exception):
+    """A mock exception for sys.exit."""
     pass
 
 
 class TestPlayerVsComputerClass(unittest.TestCase):
+    """Test the PlayerVsComputer class."""
 
     def test_init(self):
+        """Tests the constructor for the PlayerVsComputer class."""
         game = playerVsComputer.PlayerVsComputer()
         self.assertIsInstance(game.computer_player,
                               intelligence.Intelligence)
@@ -34,10 +37,10 @@ class TestPlayerVsComputerClass(unittest.TestCase):
         self.assertIsInstance(game.histogram, histogram.Histogram)
         self.assertIsInstance(game.highscores, highscore.Highscore)
 
-    '''
+    """
     Unit tests of the main menu options of the game_startup method
     of the PlayerVsComputer class.
-    '''
+    """
 
     @patch('builtins.input', side_effect=['test', '1', '5'])
     @patch('sys.exit', side_effect=MockExitException)
@@ -47,6 +50,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     def test_option_one(self, mock_start_game, mock_print,
                         mock_clear_screen,
                         mock_input, mock_exit):
+        """Test the first option of the game_startup method."""
         game = playerVsComputer.PlayerVsComputer()
         with self.assertRaises(MockExitException):
             game.game_startup()
@@ -62,6 +66,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     def test_option_two(self, mock_show_rules, mock_print,
                         mock_clear_screen,
                         mock_input, mock_exit):
+        """Test the second option of the game_startup method."""
         game = playerVsComputer.PlayerVsComputer()
         with self.assertRaises(MockExitException):
             game.game_startup()
@@ -75,6 +80,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('builtins.print')
     def test_option_three(self, mock_print, mock_clear_screen,
                           mock_input, mock_exit):
+        """Test the third option of the game_startup method."""
         game = playerVsComputer.PlayerVsComputer()
         with self.assertRaises(MockExitException):
             game.game_startup()
@@ -91,6 +97,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     def test_option_four(self, mock_display_highscores, mock_enter_to_continue,
                          mock_print, mock_clear_screen,
                          mock_input, mock_exit):
+        """Test the fourth option of the game_startup method."""
         game = playerVsComputer.PlayerVsComputer()
         with self.assertRaises(MockExitException):
             game.game_startup()
@@ -104,6 +111,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('builtins.print')
     def test_invalid_option(self, mock_print, mock_clear_screen,
                             mock_input, mock_exit):
+        """Test an invalid option of the game_startup method."""
         game = playerVsComputer.PlayerVsComputer()
         with self.assertRaises(MockExitException):
             with self.assertRaises(ValueError):
@@ -118,6 +126,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('time.sleep')
     def test_invalid_option_letter(self, mock_sleep, mock_print,
                                    mock_clear_screen, mock_input, mock_exit):
+        """Test an invalid option of the game_startup method using a letter."""
         game = playerVsComputer.PlayerVsComputer()
         with self.assertRaises(MockExitException):
             with self.assertRaises(ValueError):
@@ -126,12 +135,13 @@ class TestPlayerVsComputerClass(unittest.TestCase):
         mock_print.assert_called()
         mock_sleep.assert_called()
 
-    '''
+    """
     End of unit tests of the main menu options of the game_startup method.
-    '''
+    """
 
     @patch('builtins.print')
     def test_print_main_menu(self, mock_print):
+        """Test the print_main_menu method of the PlayerVsComputer class."""
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = MagicMock()
         main_menu_options = {'1': 'Option 1', '2': 'Option 2'}
@@ -140,6 +150,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
 
     @patch('builtins.print')
     def test_print_game_menu(self, mock_print):
+        """Test the print_game_menu method of the PlayerVsComputer class."""
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = MagicMock()
         game_menu_options = {'1': 'Option 1', '2': 'Option 2'}
@@ -152,14 +163,15 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('sys.exit', side_effect=MockExitException)
     def test_start_game(self, mock_exit, mock_enter_to_continue,
                         mock_input, mock_print):
+        """Test the start_game method of the PlayerVsComputer class."""
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.start_game()
         mock_print.assert_called()
 
-    '''
+    """
     Unit tests of the human_players_turn method of the PlayerVsComputer class.
-    '''
+    """
 
     @patch('builtins.print')
     @patch('builtins.input', side_effect=['1', '4'])
@@ -169,6 +181,7 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     def test_human_players_turn(self, mock_enter_to_continue,
                                 mock_clear_screen, mock_sleep,
                                 mock_input, mock_print):
+        """Test the human_players_turn method of the PlayerVsComputer class."""
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -196,6 +209,10 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     def test_human_players_turn_letter(self, mock_enter_to_continue,
                                        mock_clear_screen, mock_sleep,
                                        mock_input, mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user inputs a letter.
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -219,6 +236,10 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('builtins.input', side_effect=['1', '5'])
     def test_human_players_turn_rolled_a_one(self, mock_input,
                                              mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user rolls a one.
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -229,11 +250,13 @@ class TestPlayerVsComputerClass(unittest.TestCase):
         }
         game.human_players_turn(0, game_menu_options)
 
-    # a test of the human_players_turn method when he chooses option two
-    # (hold).
     @patch('builtins.print')
     @patch('builtins.input', side_effect=['2', '5'])
     def test_human_players_turn_hold_not_winning(self, mock_input, mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user chooses option two (hold) and is not winning.
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -245,11 +268,12 @@ class TestPlayerVsComputerClass(unittest.TestCase):
         }
         game.human_players_turn(0, game_menu_options)
 
-    # a test of the human_players_turn method when he chooses option two
-    # (hold) and is winning.
     @patch('builtins.print')
     @patch('builtins.input', side_effect=['2', '5'])
     def test_human_players_turn_hold_winning(self, mock_input, mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user chooses option two (hold) and is winning."""
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -262,11 +286,13 @@ class TestPlayerVsComputerClass(unittest.TestCase):
         }
         game.human_players_turn(0, game_menu_options)
 
-    # a test of the human_players_turn method when he chooses option five
-    # (show histogram). mocking histogram.show_histogram method.
     @patch('builtins.print')
     @patch('builtins.input', side_effect=['5', '4'])
     def test_human_players_turn_show_histogram(self, mock_input, mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user chooses option five (show histogram).
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -284,12 +310,13 @@ class TestPlayerVsComputerClass(unittest.TestCase):
             game.human_players_turn(0, game_menu_options)
         game.histogram.show_histogram.assert_called()
 
-    # a test of the human_players_turn method when he chooses option six
-    # (developer options). mocking developer.developer_menu method.
     @patch('builtins.print')
     @patch('builtins.input', side_effect=['6', '4'])
     def test_human_players_turn_developer_options(self, mock_input,
                                                   mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user chooses option six (developer options)."""
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -312,6 +339,10 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('builtins.input', side_effect=['3', '4'])
     def test_human_players_turn_else(self, mock_input,
                                      mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user chooses another option.
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -334,6 +365,10 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('builtins.input', side_effect=['9', '4'])
     def test_human_players_turn_invalid(self, mock_input,
                                         mock_print):
+        """
+        Test the human_players_turn method of the PlayerVsComputer class,
+        when the user chooses an invalid option.
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.human_player = player.Player('test')
         game.histogram = MagicMock()
@@ -350,15 +385,18 @@ class TestPlayerVsComputerClass(unittest.TestCase):
         with self.assertRaises(GameExitException):
             game.human_players_turn(0, game_menu_options)
 
-    '''
+    """
     End of unit tests of the human_players_turn method.
-    '''
+    """
 
     @patch('builtins.print')
     @patch('intelligence.Intelligence.start_round')
     @patch('tools.Tools.enter_to_continue')
     def test_computer_players_turn(self, mock_enter_to_continue,
                                    mock_start_round, mock_print):
+        """
+        Test the computer_players_turn method of the PlayerVsComputer class.
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.computer_player = intelligence.Intelligence()
         game.computer_player.total_score = 100
@@ -371,6 +409,9 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('settingsClass.SettingsClass.change_difficulty', return_value=1)
     def test_change_difficulty_same(self, mock_change_difficulty,
                                     mock_print):
+        """
+        Test the change_difficulty method of the PlayerVsComputer class,
+        when the user selects the same difficulty."""
         game = playerVsComputer.PlayerVsComputer()
         game.change_difficulty()
         mock_change_difficulty.assert_called()
@@ -380,6 +421,10 @@ class TestPlayerVsComputerClass(unittest.TestCase):
     @patch('settingsClass.SettingsClass.change_difficulty', return_value=2)
     def test_change_difficulty(self, mock_change_difficulty,
                                mock_print):
+        """
+        Test the change_difficulty method of the PlayerVsComputer class,
+        when the user selects a new difficulty.
+        """
         game = playerVsComputer.PlayerVsComputer()
         game.change_difficulty()
         mock_change_difficulty.assert_called()

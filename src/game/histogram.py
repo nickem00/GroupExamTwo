@@ -2,26 +2,34 @@ import tools
 
 
 class Histogram:
+    """
+    A class to represent a histogram of dice rolls. The histogram attribute is
+    a dictionary with the numbers 1-6 as keys and the number of times each
+    number was rolled as values.
+    """
 
-    '''
-    Constructor of the Histogram class.
-    Creates a dictionary for the histogram.'''
     def __init__(self):
+        """The constructor for the Histogram class. Initializes the tools
+        attribute and the histogram attribute. The histogram attribute is a
+        dictionary with the numbers 1-6 as keys and the number of times each
+        number was rolled as values.
+        """
         self.tools = tools.Tools()
         self.histogram = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
 
-    '''
-    A method for adding a roll to the histogram.
-    '''
     def add_to_histogram(self, roll):
+        """A method for adding to the histogram. Takes a roll as an argument
+        and adds 1 to the value of the key that corresponds to the number
+        rolled.
+        """
         self.histogram[roll] += 1
 
-    '''
-    A method for showing the histogram.
-    Goes through the histogram and prints the number of times
-    each number was rolled.
-    '''
     def show_histogram(self):
+        """
+        A method for displaying the histogram. This method uses the tools
+        attribute to clear the screen and then prints out the number of times
+        each number was rolled.
+        """
         self.tools.clear_screen()
         print("---How often each number was rolled---")
         for key, value in self.histogram.items():

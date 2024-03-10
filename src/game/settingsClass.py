@@ -1,13 +1,18 @@
 class SettingsClass:
+    """
+    The SettingsClass class is used to change the difficulty level of the game.
+    """
     def __init__(self):
+        """
+        Initializes the SettingsClass object.
+        """
         pass
 
-    '''
-    Method for changing the difficulty of the game.
-    Returns the new difficulty level as an integer to be changed in the
-    playerVsComputer class.
-    '''
     def change_difficulty(self):
+        """
+        Prompts user to select new difficulty level.
+        Returns the new difficulty level if it is valid.
+        """
         new_difficulty = int(input('Please select new difficulty:\n'
                                    '1. Easy\n'
                                    '2. Medium\n'

@@ -5,12 +5,15 @@ from unittest.mock import MagicMock, patch
 
 
 class TestHistogramClass(unittest.TestCase):
+    """Test the Histogram class."""
 
     def test_init(self):
+        """Test the __init__ method (Constructor)."""
         h = histogram.Histogram()
         self.assertEqual(h.histogram, {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0})
 
     def test_add_to_histogram(self):
+        """Test the add_to_histogram method."""
         h = histogram.Histogram()
         h.add_to_histogram(1)
         self.assertEqual(h.histogram[1], 1)
@@ -18,6 +21,7 @@ class TestHistogramClass(unittest.TestCase):
 
     @patch('builtins.print')
     def test_show_histogram(self, mock_print):
+        """Test the show_histogram method."""
         h = histogram.Histogram()
         h.tools.clear_screen = MagicMock()
         h.tools.enter_to_continue = MagicMock()
