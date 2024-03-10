@@ -83,20 +83,20 @@ We have implemented a test suite to ensure the code's reliability and effectiven
 
 5. **Run Tests**: To run the complete test suite, execute the below command in the terminal:
 
-    ```
+    ```bash
     make test
     ```
 
 6. **Generate Coverage Report**: To generate a coverage report for the test, execute the below command in the terminal:
 
-    ```
+    ```bash
     make coverage
     ```
 
 7. **Generate an HTML Coverage Report**: To generate an HTML coverage report for the test, execute the below command in the terminal:
 
-    ```
-    coverage html
+    ```bash
+    make coverage-html
     ```
 
    This will generate an HTML report in the "htmlcov" directory. To open the report, you can open the "index.html" file in your web browser.
@@ -104,10 +104,16 @@ We have implemented a test suite to ensure the code's reliability and effectiven
 
 8. **Generate UML Diagrams**: To generate UML diagrams for the game, execute the below command in the terminal:
 
-    ```
+    ```bash
     make uml
     ```
 
    This will generate UML diagrams in PlantUML format in the "doc/uml" directory. You can then copy the code and the paste it on this site: *https://www.planttext.com/* to generate the diagrams.
+
+8. **Generate HTML Documentation**: To generate an HTML documentation page you can use the following command:
+    ```bash
+    make html
+    ```
+    This will create an index.html file in the `docs/_build` folder.
 
 Enjoy the game!

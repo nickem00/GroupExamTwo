@@ -12,11 +12,10 @@ class TestRulesClass(unittest.TestCase):
         r = rules.Rules()
         self.assertIsInstance(r.tools, tools.Tools)
 
-    @patch('builtins.print')
-    @patch('tools.Tools.clear_screen')
-    @patch('tools.Tools.enter_to_continue')
-    def test_show_rules(self, mock_enter_to_continue,
-                        mock_clear_screen, mock_print):
+    @patch("builtins.print")
+    @patch("tools.Tools.clear_screen")
+    @patch("tools.Tools.enter_to_continue")
+    def test_show_rules(self, mock_enter_to_continue, mock_clear_screen, mock_print):
         """Test the show_rules method."""
         r = rules.Rules()
         r.show_rules()

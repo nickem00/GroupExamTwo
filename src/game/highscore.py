@@ -1,17 +1,18 @@
 import tools
 
 
-class Highscore():
+class Highscore:
     """
     A class for handling highscores. It has methods for reading, displaying,
     checking, and saving highscores. It also has a method for sorting the
     highscores.
     """
+
     def __init__(self):
         """The constructor for the Highscore class. It sets the highscore file
         and creates a new tools object.
         """
-        self.highscoreFile = 'highscore.txt'
+        self.highscoreFile = "highscore.txt"
         self.tools = tools.Tools()
 
     def read_highscores(self):
@@ -82,19 +83,20 @@ class Highscore():
         if player_name in highscores:
             if player_score > highscores[player_name]:
                 highscores[player_name] = player_score
-                print(f'New highscore! ({player_score}) Your highest '
-                      'score is now saved!')
+                print(
+                    f"New highscore! ({player_score}) Your highest "
+                    "score is now saved!"
+                )
                 self.tools.enter_to_continue()
             else:
                 pass
         else:
             highscores[player_name] = player_score
-            print('Congratulations! Your highest score is now saved!')
+            print("Congratulations! Your highest score is now saved!")
             self.tools.enter_to_continue()
 
         highscore_sorting = highscores.items()
-        sorted_list = sorted(highscore_sorting,
-                             key=lambda item: item[1], reverse=True)
+        sorted_list = sorted(highscore_sorting, key=lambda item: item[1], reverse=True)
         sorted_highscores = dict(sorted_list)
 
         with open(self.highscoreFile, "w") as highscore_file:

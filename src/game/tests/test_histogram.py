@@ -19,7 +19,7 @@ class TestHistogramClass(unittest.TestCase):
         self.assertEqual(h.histogram[1], 1)
         self.assertEqual(h.histogram[2], 0)
 
-    @patch('builtins.print')
+    @patch("builtins.print")
     def test_show_histogram(self, mock_print):
         """Test the show_histogram method."""
         h = histogram.Histogram()

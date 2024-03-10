@@ -7,20 +7,20 @@ class TestToolsClass(unittest.TestCase):
     """Test the Tools class."""
 
     @patch("os.system")
-    @patch('os.name', 'nt')
+    @patch("os.name", "nt")
     def test_clear_screen_windows(self, mock_system):
         """Test the clear_screen method on Windows."""
         t = tools.Tools()
         t.clear_screen()
-        mock_system.assert_called_with('cls')
+        mock_system.assert_called_with("cls")
 
     @patch("os.system")
-    @patch('os.name', 'posix')
+    @patch("os.name", "posix")
     def test_clear_screen_linux(self, mock_system):
         """Test the clear_screen method on Linux."""
         t = tools.Tools()
         t.clear_screen()
-        mock_system.assert_called_with('clear')
+        mock_system.assert_called_with("clear")
 
     @patch("sys.exit")
     @patch("builtins.print")
@@ -28,7 +28,7 @@ class TestToolsClass(unittest.TestCase):
         """Test the close_game method."""
         t = tools.Tools()
         t.close_game()
-        mock_print.assert_called_with('Thank you for playing!')
+        mock_print.assert_called_with("Thank you for playing!")
         mock_exit.assert_called()
 
     @patch("time.sleep")

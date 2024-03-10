@@ -3,7 +3,7 @@ import sys
 import time
 
 
-class Tools():
+class Tools:
     """
     This class contains different 'tools' that can be used in the game,
     such as clearing the screen, closing the game, pausing the game for
@@ -24,10 +24,10 @@ class Tools():
         the operating system and then uses the appropriate command to
         clear the screen.
         """
-        if os.name == 'nt':
-            os.system('cls')
+        if os.name == "nt":
+            os.system("cls")
         else:
-            os.system('clear')
+            os.system("clear")
 
     def close_game(self):
         """
@@ -35,7 +35,7 @@ class Tools():
         then exits the game. It uses the sys module to exit from
         anywhere in the game.
         """
-        print('Thank you for playing!')
+        print("Thank you for playing!")
         sys.exit()
 
     def pause(self, seconds):
@@ -53,6 +53,6 @@ class Tools():
         When the user presses enter, the game continues, and the screen
         is cleared.
         """
-        input('Press enter to continue...')
+        input("Press enter to continue...")
         self.clear_screen()
         return

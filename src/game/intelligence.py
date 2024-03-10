@@ -40,7 +40,7 @@ class Intelligence:
         elif difficulty == 3:
             self.hard(histogram)
         else:
-            print('Error: Difficulty not set')
+            print("Error: Difficulty not set")
 
     def hold(self):
         """
@@ -50,9 +50,11 @@ class Intelligence:
         list to an empty list.
         """
         self.total_score += self.round_score
-        print(f'{self.name} got {self.rolls} in this round!\n'
-              f'which gives a total of {self.round_score} points!')
-        print('-----------------------------------')
+        print(
+            f"{self.name} got {self.rolls} in this round!\n"
+            f"which gives a total of {self.round_score} points!"
+        )
+        print("-----------------------------------")
         self.round_score = 0
         self.rolls = []
         return
@@ -68,7 +70,7 @@ class Intelligence:
             try:
                 self.roll_die(histogram)
             except RolledAOneException:
-                print('The computer rolled a one. No points added!')
+                print("The computer rolled a one. No points added!")
                 break
         self.hold()
 
@@ -79,7 +81,7 @@ class Intelligence:
             try:
                 self.roll_die(histogram)
             except RolledAOneException:
-                print('The computer rolled a one. No points added!')
+                print("The computer rolled a one. No points added!")
                 break
         self.hold()
 
@@ -92,7 +94,7 @@ class Intelligence:
             try:
                 self.roll_die(histogram)
             except RolledAOneException:
-                print('The computer rolled a one. No points added!')
+                print("The computer rolled a one. No points added!")
                 break
         self.hold()
 

@@ -12,11 +12,13 @@ def run_game():
         tools.Tools().clear_screen()
         print("Welcome to the Game!")
 
-        choice = input('Please choose an option:\n'
-                       '1. Player vs Computer\n'
-                       '2. Player vs Player\n'
-                       '0. Exit\n'
-                       'Enter your choice (1, 2, or 0 to exit): ')
+        choice = input(
+            "Please choose an option:\n"
+            "1. Player vs Computer\n"
+            "2. Player vs Player\n"
+            "0. Exit\n"
+            "Enter your choice (1, 2, or 0 to exit): "
+        )
 
         if choice == "1":
             game_controller = playerVsComputer.PlayerVsComputer()

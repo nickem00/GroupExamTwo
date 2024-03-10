@@ -7,8 +7,7 @@ import developer
 import histogram
 import tools
 import time
-from exceptions import (RolledAOneException,
-                        GameExitException)
+from exceptions import RolledAOneException, GameExitException
 
 
 class PlayerVsPlayer:
@@ -40,19 +39,18 @@ class PlayerVsPlayer:
         self.histogram = histogram.Histogram()
         self.highscores = highscore.Highscore()
         self.main_menu_options = [
-            '1. Start Game\n',
-            '2. Show Rules\n'
-            '3. Show Highscores\n',
-            '4. Exit Game\n'
+            "1. Start Game\n",
+            "2. Show Rules\n" "3. Show Highscores\n",
+            "4. Exit Game\n",
         ]
         self.game_menu_options = [
-            '1. Roll\n',
-            '2. Hold\n',
-            '3. Show Rules\n',
-            '4. Change Name\n',
-            '5. Show Histogram\n',
-            '6. Exit game (Points Reset)\n',
-            '7. Developer Menu\n'
+            "1. Roll\n",
+            "2. Hold\n",
+            "3. Show Rules\n",
+            "4. Change Name\n",
+            "5. Show Histogram\n",
+            "6. Exit game (Points Reset)\n",
+            "7. Developer Menu\n",
         ]
 
     def game_startup(self):
@@ -64,18 +62,18 @@ class PlayerVsPlayer:
         rules of the game and the highscores.
         """
         self.tools.clear_screen()
-        print('Welcome to PIG Dice Game!')
-        player1_name = input('Please enter the name of Player 1 >> ')
-        player2_name = input('Please enter the name of Player 2 >> ')
+        print("Welcome to PIG Dice Game!")
+        player1_name = input("Please enter the name of Player 1 >> ")
+        player2_name = input("Please enter the name of Player 2 >> ")
         self.player_one = player.Player(player1_name)
         self.player_two = player.Player(player2_name)
 
         while True:
             self.print_main_menu()
             try:
-                choice = int(input('>>> '))
+                choice = int(input(">>> "))
             except ValueError:
-                print('Please enter a valid choice! Error: Not a number')
+                print("Please enter a valid choice! Error: Not a number")
                 time.sleep(2)
                 continue
 
@@ -89,7 +87,7 @@ class PlayerVsPlayer:
                 else:
                     self.start_game()
             else:
-                print('Please enter a valid choice! Error: Not in range 1-4')
+                print("Please enter a valid choice! Error: Not in range 1-4")
                 continue
 
     def start_game(self):
@@ -146,14 +144,14 @@ class PlayerVsPlayer:
 
         while True:
             if rounds == 0:
-                print(f'{player.name} goes first!')
+                print(f"{player.name} goes first!")
             else:
-                print(f'{player.name}\'s turn!')
+                print(f"{player.name}'s turn!")
             self.print_game_menu()
             try:
-                choice = int(input('>>> '))
+                choice = int(input(">>> "))
             except ValueError:
-                print('Please enter a valid choice! Error: Not a number')
+                print("Please enter a valid choice! Error: Not a number")
                 time.sleep(3)
                 continue
 
@@ -172,14 +170,14 @@ class PlayerVsPlayer:
                     player.hold(self.highscores)
                     self.tools.clear_screen()
                     if player.is_winning(100):
-                        print(f'***Congratulations {player.name}!'
-                              f' You won!***')
+                        print(f"***Congratulations {player.name}!" f" You won!***")
                         self.tools.enter_to_continue()
                         raise GameExitException
                     else:
-                        print('You held! Your total score is '
-                              f'now {player.total_score}')
-                        print('-----------------------------------')
+                        print(
+                            "You held! Your total score is " f"now {player.total_score}"
+                        )
+                        print("-----------------------------------")
                         self.print_points()
                         self.tools.enter_to_continue()
                         break
@@ -187,9 +185,9 @@ class PlayerVsPlayer:
                     try:
                         current_roll = player.roll_die(self.histogram)
                         self.tools.clear_screen()
-                        print(f'You rolled a {current_roll}!')
+                        print(f"You rolled a {current_roll}!")
                     except RolledAOneException:
-                        print('\nYou rolled a 1! Your turn is over.')
+                        print("\nYou rolled a 1! Your turn is over.")
                         self.tools.enter_to_continue()
                         break
 
@@ -197,18 +195,18 @@ class PlayerVsPlayer:
         """
         A simple method for printing the main menu.
         """
-        print('---Main Menu---\n')
+        print("---Main Menu---\n")
         for option in self.main_menu_options:
-            print(option, end='')
+            print(option, end="")
         return
 
     def print_game_menu(self):
         """
         A simple method for printing the game menu.
         """
-        print('---Game Menu---\n')
+        print("---Game Menu---\n")
         for option in self.game_menu_options:
-            print(option, end='')
+            print(option, end="")
         return
 
     def show_rules(self):
@@ -228,24 +226,23 @@ class PlayerVsPlayer:
         while True:
             try:
                 self.tools.clear_screen()
-                print('Which player would you like to change the name of?')
-                print(f'1. {self.player_one.name}\n'
-                      f'2. {self.player_two.name}\n')
-                choice = int(input('>>> '))
+                print("Which player would you like to change the name of?")
+                print(f"1. {self.player_one.name}\n" f"2. {self.player_two.name}\n")
+                choice = int(input(">>> "))
                 self.tools.clear_screen()
                 if choice == 1:
-                    new_name = input('Enter new name for player one: ')
+                    new_name = input("Enter new name for player one: ")
                     self.player_one.set_name(new_name)
                     self.tools.clear_screen()
                     break
                 else:
-                    new_name = input('Enter new name for player two: ')
+                    new_name = input("Enter new name for player two: ")
                     self.player_two.set_name(new_name)
                     self.tools.clear_screen()
                     break
             except ValueError:
                 self.tools.clear_screen()
-                print('Please enter a valid choice! Error: Not a number')
+                print("Please enter a valid choice! Error: Not a number")
                 time.sleep(2)
                 self.tools.clear_screen()
                 continue
@@ -253,11 +250,13 @@ class PlayerVsPlayer:
 
     def print_points(self):
         """A method for printing the total score of the players."""
-        print('Scores:\n'
-              f'{self.player_one.name}: '
-              f'{self.player_one.total_score}\n'
-              f'{self.player_two.name}: '
-              f'{self.player_two.total_score}\n')
+        print(
+            "Scores:\n"
+            f"{self.player_one.name}: "
+            f"{self.player_one.total_score}\n"
+            f"{self.player_two.name}: "
+            f"{self.player_two.total_score}\n"
+        )
         return
 
     def show_histogram(self):

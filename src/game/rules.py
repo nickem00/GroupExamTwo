@@ -6,6 +6,7 @@ class Rules:
     This class contains the rules of the game, and a method to display
     the rules of the game.
     """
+
     def __init__(self):
         """
         Initialize the Rules class with a Tools object, to use the
@@ -19,7 +20,8 @@ class Rules:
         from the Tools class for visual purposes.
         """
         self.tools.clear_screen()
-        print('''Welcome to the PIG Dice Game!
+        print(
+            """Welcome to the PIG Dice Game!
         Here are the rules:
         1. The game is played by two players.
         A human player and a computer player.
@@ -31,6 +33,7 @@ class Rules:
         6. If a player chooses to hold, the points accumulated during the
         turn are added to the player's total points.
         7. The computer player is set to easy difficulty by default.
-        ''')
+        """
+        )
         self.tools.enter_to_continue()
         self.tools.clear_screen()
