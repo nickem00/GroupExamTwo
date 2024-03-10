@@ -96,7 +96,9 @@ class Highscore:
             self.tools.enter_to_continue()
 
         highscore_sorting = highscores.items()
-        sorted_list = sorted(highscore_sorting, key=lambda item: item[1], reverse=True)
+        sorted_list = sorted(highscore_sorting,
+                             key=lambda item: item[1],
+                             reverse=True)
         sorted_highscores = dict(sorted_list)
 
         with open(self.highscoreFile, "w") as highscore_file:

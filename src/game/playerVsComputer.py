@@ -5,7 +5,9 @@ import tools
 import intelligence
 import rules
 import settingsClass
-from exceptions import GameExitException, RolledAOneException, ComputerWonException
+from exceptions import (GameExitException,
+                        RolledAOneException,
+                        ComputerWonException)
 import developer
 import histogram
 import highscore
@@ -48,7 +50,8 @@ class PlayerVsComputer:
         self.tools.clear_screen()
         print("Welcome to PIG Dice Game!")
         if not self.human_player:
-            self.human_player = player.Player(input("Please enter " "your name >> "))
+            self.human_player = player.Player(input("Please enter "
+                                                    "your name >> "))
 
         main_menu_options = {
             "1": ("Start Game", self.start_game),
@@ -162,7 +165,8 @@ class PlayerVsComputer:
                     raise GameExitException
                 elif choice == 1:
                     try:
-                        current_roll = game_menu_options[str(choice)][1](self.histogram)
+                        current_roll = (game_menu_options
+                                        [str(choice)][1](self.histogram))
                         self.tools.clear_screen()
                         print(f"You rolled a {current_roll}")
                     except RolledAOneException:

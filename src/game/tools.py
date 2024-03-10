@@ -16,7 +16,6 @@ class Tools:
         Just a simple constructor method that does nothing but create
         an instance of the class.
         """
-        pass
 
     def clear_screen(self):
         """
@@ -44,7 +43,6 @@ class Tools:
         It uses the time module to pause the game.
         """
         time.sleep(seconds)
-        return
 
     def enter_to_continue(self):
         """
@@ -55,4 +53,3 @@ class Tools:
         """
         input("Press enter to continue...")
         self.clear_screen()
-        return

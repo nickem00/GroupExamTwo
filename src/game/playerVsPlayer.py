@@ -170,12 +170,14 @@ class PlayerVsPlayer:
                     player.hold(self.highscores)
                     self.tools.clear_screen()
                     if player.is_winning(100):
-                        print(f"***Congratulations {player.name}!" f" You won!***")
+                        print(f"***Congratulations {player.name}!"
+                              f" You won!***")
                         self.tools.enter_to_continue()
                         raise GameExitException
                     else:
                         print(
-                            "You held! Your total score is " f"now {player.total_score}"
+                            "You held! Your total score is "
+                            f"now {player.total_score}"
                         )
                         print("-----------------------------------")
                         self.print_points()
@@ -227,7 +229,8 @@ class PlayerVsPlayer:
             try:
                 self.tools.clear_screen()
                 print("Which player would you like to change the name of?")
-                print(f"1. {self.player_one.name}\n" f"2. {self.player_two.name}\n")
+                print(f"1. {self.player_one.name}\n"
+                      f"2. {self.player_two.name}\n")
                 choice = int(input(">>> "))
                 self.tools.clear_screen()
                 if choice == 1:
