@@ -4,7 +4,7 @@ This is a game developed in Python using object-oriented programming principles.
 
 ## Game Structure
 
-The game is structured into several Python files each serving a different purpose:
+The game is structured into several Python files, each serving a different purpose:
 
 - `main.py`: This is the entry point of the game. It contains the main method for the game and the game loop.
 - `playerVsComputer.py`: This file contains the logic for the game mode where a player plays against the computer.
@@ -68,13 +68,13 @@ We have implemented a test suite to ensure the code's reliability and effectiven
 
 2. **Install Required Packages**: To ensure that you will be able to run the tests, you have to have the necessary packages installed. You can install them using this command in the terminal:
 
-    ```
+    ```bash
     pip install -r requirements.txt
     ```
 
 3. **Create and Activate a Virtual Environment**: It is recommended to create and activate a virtual environment before running the tests. This isolates the project's dependencies from your system's Python installation. You can create and activate a virtual environment using the following commands in the terminal:
 
-    ```
+    ```bash
     python -m venv .venv
     source .venv/Scripts/activate
     ```
