@@ -1,0 +1,131 @@
+@startuml classes_DiceGame
+set namespaceSeparator none
+class "<color:red>ComputerWonException</color>" as oopython.src.game.exceptions.ComputerWonException {
+}
+class "Developer" as oopython.src.game.developer.Developer {
+  password : str
+  tools
+  developer_menu(player)
+}
+class "Dice" as oopython.src.game.dice.Dice {
+  sides : int
+  roll()
+}
+class "<color:red>GameExitException</color>" as oopython.src.game.exceptions.GameExitException {
+}
+class "Highscore" as oopython.src.game.highscore.Highscore {
+  highscoreFile : str
+  tools
+  display_highscores()
+  is_highscore(player_name, player_score)
+  read_highscores()
+  save_new_highscore(player_name, player_score)
+}
+class "Histogram" as oopython.src.game.histogram.Histogram {
+  histogram : dict
+  tools
+  add_to_histogram(roll)
+  show_histogram()
+}
+class "Intelligence" as oopython.src.game.intelligence.Intelligence {
+  die
+  difficulty : int
+  name : str
+  roll_until_hold : int
+  rolls : list
+  round_score : int
+  tools
+  total_score : int
+  easy(histogram)
+  hard(histogram)
+  hold()
+  is_winning(winning_score)
+  medium(histogram)
+  roll_die(histogram)
+  start_round(difficulty, histogram)
+}
+class "Player" as oopython.src.game.player.Player {
+  die
+  name
+  round_score : int
+  tools
+  total_score : int
+  hold(highscores)
+  is_winning(winning_score)
+  roll_die(histogram)
+  set_name(name)
+}
+class "PlayerVsComputer" as oopython.src.game.playerVsComputer.PlayerVsComputer {
+  all_rules
+  computer_player
+  developer
+  difficulty : int
+  highscores
+  histogram
+  human_player : NoneType
+  intelligence
+  settings
+  tools
+  change_difficulty()
+  change_name()
+  computer_players_turn()
+  game_startup()
+  human_players_turn(rounds, game_menu_options)
+  print_game_menu(game_menu_options)
+  print_main_menu(main_menu_options)
+  print_points()
+  show_rules()
+  start_game()
+}
+class "PlayerVsPlayer" as oopython.src.game.playerVsPlayer.PlayerVsPlayer {
+  all_rules
+  developer
+  difficulty : int
+  game_menu_options : list
+  highscores
+  histogram
+  intelligence
+  main_menu_options : list
+  player_one : NoneType
+  player_two : NoneType
+  settings
+  tools
+  change_name()
+  game_startup()
+  print_game_menu()
+  print_main_menu()
+  print_points()
+  show_histogram()
+  show_rules()
+  start_game()
+  start_round(rounds, player)
+}
+class "<color:red>RolledAOneException</color>" as oopython.src.game.exceptions.RolledAOneException {
+}
+class "Rules" as oopython.src.game.rules.Rules {
+  tools
+  show_rules()
+}
+class "SettingsClass" as oopython.src.game.settingsClass.SettingsClass {
+  change_difficulty()
+}
+class "Tools" as oopython.src.game.tools.Tools {
+  clear_screen()
+  close_game()
+  enter_to_continue()
+  pause(seconds)
+}
+
+oopython.src.game.exceptions.ComputerWonException --|> oopython.src.game.exceptions.GameExitException
+oopython.src.game.exceptions.RolledAOneException --|> oopython.src.game.exceptions.GameExitException
+oopython.src.game.developer.Developer --> oopython.src.game.tools.Tools
+oopython.src.game.dice.Dice --> oopython.src.game.tools.Tools
+oopython.src.game.highscore.Highscore --> oopython.src.game.tools.Tools
+oopython.src.game.histogram.Histogram --> oopython.src.game.tools.Tools
+oopython.src.game.intelligence.Intelligence --> oopython.src.game.tools.Tools
+oopython.src.game.player.Player --> oopython.src.game.tools.Tools
+oopython.src.game.playerVsComputer.PlayerVsComputer --> oopython.src.game.tools.Tools
+oopython.src.game.playerVsPlayer.PlayerVsPlayer --> oopython.src.game.tools.Tools
+oopython.src.game.rules.Rules --> oopython.src.game.tools.Tools
+oopython.src.game.settingsClass.SettingsClass --> oopython.src.game.tools.Tools
+@enduml

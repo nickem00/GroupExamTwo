@@ -29,53 +29,85 @@ The `Intelligence` class in the `intelligence.py` file controls the actions of t
 
 ## How to Play
 
-1. Run `main.py` to start the game.
-2. Choose between 'Player vs Computer' and 'Player vs Player' modes.
-3. Follow the on-screen instructions to play the game.
+1. Open a command prompt or terminal application.
+2. Navigate to the `src/game` folder.
+3. Run `main.py` to start the game.
+4. Choose between 'Player vs Computer' and 'Player vs Player' modes.
+5. Follow the on-screen instructions to play the game.
 
 ## Game Menu Options
 
-In the game, you have several options:
+Depending on the game mode chosen, the game menu will display different options:
 
-1. Roll: Roll the dice.
-2. Hold: Hold your current score.
-3. Show Rules: Display the game rules.
-4. Change Name: Change the player's name.
-5. Show Histogram: Display a histogram of scores.
-6. Exit game (Points Reset): Exit the game. Note that this will reset your points.
-7. Developer Menu: Access the developer menu for additional options.
+- **Player vs Computer Mode**:
+    - **Start Game**: This option starts the game.
+    - **Show Rules**: This option displays the rules of the game.
+    - **Change Name**: This option allows you to change the name of the player.
+    - **Show Highscores**: This option displays the high scores of the game.
+    - **Exit Game**: This option exits the game.
 
-## How to ownload and use the code
+- **Player vs Player Mode**:
+    - **Start Game**: This option starts the game.
+    - **Show Rules**: This option displays the rules of the game.
+    - **Show Highscores**: This option displays the high scores of the game.
+    - **Exit Game**: This option exits the game.
+
+## How to Download and Use the Code
 
 1. Download the ZIP-file that contains the code through this link: *Insert link*
 2. Extract the ZIP-file to any location on your computer.
 3. Open a Python-compatible editor.
 4. Open the folder as a project.
 5. You can now edit the code as you see fit and/or play the game as described in the "How to play" section of this README.md file.
-   
-# How to run tests and generate coverage report
 
-We have implemented a test suite to ensure the codes reliability and effectievness. This section will show you how to run the complete test and generate a coverage report: 
+## How to Run Tests and Generate Coverage Report
 
-1. **Note**: Make sure you have a terminal application installed on your system to execute the below commands. If you do NOT, feel free to install any terminal application. Follow this link to install Git Bash:*https://git-scm.com/downloads*
+We have implemented a test suite to ensure the code's reliability and effectiveness. This section will show you how to run the complete test and generate a coverage report:
 
-2. **Install Required Packages**: To ensure that you will be able to run the tests you have to have the necessary packages installed. You can intall them using this command in the terminal:
+1. **Note**: Make sure you have a terminal application installed on your system to execute the below commands. If you do NOT, feel free to install any terminal application. Follow this link to install Git Bash: *https://git-scm.com/downloads*
 
-    `pip install -r requirements.txt`
+2. **Install Required Packages**: To ensure that you will be able to run the tests, you have to have the necessary packages installed. You can install them using this command in the terminal:
 
-3. **Run Tests**: To run the complete test suite, execute the below command in the terminal:
+    ```
+    pip install -r requirements.txt
+    ```
 
-    `pytest`
+3. **Create and Activate a Virtual Environment**: It is recommended to create and activate a virtual environment before running the tests. This isolates the project's dependencies from your system's Python installation. You can create and activate a virtual environment using the following commands in the terminal:
 
-4. **Generate Coverage Report**: To generate a coverage report for the test, execute the below command in the  terminal:
+    ```
+    python -m venv .venv
+    source .venv/Scripts/activate
+    ```
 
-    `coverage run -m pytest`
+4. **Install Make**: Make is a build automation tool that simplifies the process of running commands. If you don't have Make installed, you can install it using the package manager of your operating system.
 
-5. **Generate an HTML Coverage Report**: To generate an HTML coverage report for the test, execute the below command in the  terminal: 
+5. **Run Tests**: To run the complete test suite, execute the below command in the terminal:
 
-    `coverage html`
+    ```
+    make test
+    ```
 
-This will generate an HTML report in the "htmlcov" directory. To open the report you can open the "index.html" file in your web browser.
+6. **Generate Coverage Report**: To generate a coverage report for the test, execute the below command in the terminal:
 
+    ```
+    make coverage
+    ```
+
+7. **Generate an HTML Coverage Report**: To generate an HTML coverage report for the test, execute the below command in the terminal:
+
+    ```
+    coverage html
+    ```
+
+   This will generate an HTML report in the "htmlcov" directory. To open the report, you can open the "index.html" file in your web browser.
+   Note that running `make test` also generates an HTML coverage report.
+
+8. **Generate UML Diagrams**: To generate UML diagrams for the game, execute the below command in the terminal:
+
+    ```
+    make uml
+    ```
+
+   This will generate UML diagrams in PlantUML format in the "doc/uml" directory. You can then copy the code and the paste it on this site: *https://www.planttext.com/* to generate the diagrams.
 
 Enjoy the game!

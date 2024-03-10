@@ -65,3 +65,14 @@ html:
 	@$(MESSAGE) "Building Sphinx HTML documentation..."
 	@test -d docs || mkdir docs
 	@cd docs; sphinx-build -b html . _build/html
+
+# ---------------------------------------------------------
+# Generate UML diagrams in PlantUML format.
+# PlantUML files are generated in the doc/uml directory.
+# Add the modules to be included in the UML diagram in the pyreverse command.
+#
+uml:
+	@$(MESSAGE) "Generating PlantUML diagrams..."
+	pyreverse -o puml -p DiceGame src/game/player.py src/game/developer.py src/game/dice.py src/game/exceptions.py src/game/highscore.py src/game/histogram.py src/game/intelligence.py src/game/main.py src/game/playerVsComputer.py src/game/playerVsPlayer.py src/game/rules.py src/game/settingsClass.py src/game/tools.py
+	mkdir -p doc/uml
+	mv *.puml doc/uml/

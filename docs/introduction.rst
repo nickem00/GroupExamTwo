@@ -119,4 +119,12 @@ We have implemented a test suite to ensure the code's reliability and effectiven
 
    also generates an HTML coverage report.
 
+8. **Generate UML Diagrams**: To generate UML diagrams for the game, execute the below command in the terminal:
+
+    ::
+    
+        make uml
+
+   This will generate UML diagrams in PlantUML format in the "doc/uml" directory. You can then copy the code and the paste it on this site: *https://www.planttext.com/* to generate the diagrams.
+
 Enjoy the game!

@@ -1,0 +1,33 @@
+@startuml packages_DiceGame
+set namespaceSeparator none
+package "oopython.src.game.developer" as oopython.src.game.developer {
+}
+package "oopython.src.game.dice" as oopython.src.game.dice {
+}
+package "oopython.src.game.exceptions" as oopython.src.game.exceptions {
+}
+package "oopython.src.game.highscore" as oopython.src.game.highscore {
+}
+package "oopython.src.game.histogram" as oopython.src.game.histogram {
+}
+package "oopython.src.game.intelligence" as oopython.src.game.intelligence {
+}
+package "oopython.src.game.main" as oopython.src.game.main {
+}
+package "oopython.src.game.player" as oopython.src.game.player {
+}
+package "oopython.src.game.playerVsComputer" as oopython.src.game.playerVsComputer {
+}
+package "oopython.src.game.playerVsPlayer" as oopython.src.game.playerVsPlayer {
+}
+package "oopython.src.game.rules" as oopython.src.game.rules {
+}
+package "oopython.src.game.settingsClass" as oopython.src.game.settingsClass {
+}
+package "oopython.src.game.tools" as oopython.src.game.tools {
+}
+oopython.src.game.intelligence --> oopython.src.game.exceptions
+oopython.src.game.player --> oopython.src.game.exceptions
+oopython.src.game.playerVsComputer --> oopython.src.game.exceptions
+oopython.src.game.playerVsPlayer --> oopython.src.game.exceptions
+@enduml
