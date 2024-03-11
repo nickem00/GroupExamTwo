@@ -63,13 +63,7 @@ Depending on the game mode chosen, the game menu will display different options:
 
 We have implemented a test suite to ensure the code's reliability and effectiveness. This section will show you how to run the complete test and generate a coverage report:
 
-1. **Note**: Make sure you have a terminal application installed on your system to execute the below commands. If you do NOT, feel free to install any terminal application. Follow this link to install Git Bash: *https://git-scm.com/downloads*
-
-2. **Install Required Packages**: To ensure that you will be able to run the tests, you have to have the necessary packages installed. You can install them using this command in the terminal:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. **Install Make**: Make is a build automation tool that simplifies the process of running commands. If you don't have Make installed, you need to install it.
 
 3. **Create and Activate a Virtual Environment**: It is recommended to create and activate a virtual environment before running the tests. This isolates the project's dependencies from your system's Python installation. You can create and activate a virtual environment using the following commands in the terminal:
 
@@ -78,7 +72,12 @@ We have implemented a test suite to ensure the code's reliability and effectiven
     source .venv/Scripts/activate
     ```
 
-4. **Install Make**: Make is a build automation tool that simplifies the process of running commands. If you don't have Make installed, you can install it using the package manager of your operating system.
+4. **Install Required Packages**: To ensure that you will be able to run the tests, you have to have the necessary packages installed. You can install them using this command in the terminal:
+
+    ```bash
+    make install
+    ```
+
 
 5. **Run Tests**: To run the complete test suite, execute the below command in the terminal:
 
