@@ -58,7 +58,9 @@ test:
 	@$(MESSAGE) "Running tests with coverage..."
 	@$(VENV)/Scripts/coverage run -m pytest $(TESTS)
 	@$(VENV)/Scripts/coverage report -m
-	@$(VENV)/Scripts/coverage html
+	@test -d doc || mkdir doc
+	@$(VENV)/Scripts/coverage html -d ./doc
+
 # @$(VENV)/Scripts/pytest $(TESTS)
 
 # ---------------------------------------------------------

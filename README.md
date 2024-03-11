@@ -89,17 +89,17 @@ We have implemented a test suite to ensure the code's reliability and effectiven
 6. **Generate Coverage Report**: To generate a coverage report for the test, execute the below command in the terminal:
 
     ```bash
-    make coverage
+    coverage run -m pytest
+    coverage report -m
     ```
 
 7. **Generate an HTML Coverage Report**: To generate an HTML coverage report for the test, execute the below command in the terminal:
 
     ```bash
-    make coverage-html
+    make test
     ```
 
-   This will generate an HTML report in the "htmlcov" directory. To open the report, you can open the "index.html" file in your web browser.
-   Note that running `make test` also generates an HTML coverage report.
+   This will generate an HTML report named index.html in the "doc" directory. To open the report, you can open the "index.html" file in your web browser.
 
 8. **Generate UML Diagrams**: To generate UML diagrams for the game, execute the below command in the terminal:
 
@@ -113,6 +113,7 @@ We have implemented a test suite to ensure the code's reliability and effectiven
     ```bash
     make html
     ```
-    This will create an index.html file in the `docs/_build` folder.
+    This will create an index.html file in the `docs/_build` folder.\
+    The `make html` command uses Sphinx to detect docstrings, to automaticly generate a HTML Documentation.
 
 Enjoy the game!
